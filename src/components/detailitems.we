@@ -1,0 +1,21 @@
+<template>
+  <div class="monthWrap" repeat="{{item in items}}" track-by="item._id">
+    <text value="{{item.year}}-{{item.month}}"></text>
+    <div class="dayWrap" repeat="{{detail in item.details}}" track-by="detail._id">
+      <text value="{{detail.date}}-{{detail.amount}}"></text>
+    </div>
+  </div>
+</template>
+
+<script>
+  module.exports = {
+    data: function() {
+      return {
+        items: []
+      }
+    },
+    ready: function() {
+      console.log(this.data.items);
+    }
+  }
+</script>
