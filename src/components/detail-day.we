@@ -1,12 +1,12 @@
 <template>
-  <div class="day-wrap">
+  <div class="day-wrap" if="hasDetails">
     <div class="day-box {{color}}">
       <text class="day-text">{{day.date}}</text>
       <div class="detail-box">
         <text class="detail-text">{{dailySummary}}</text>
       </div>
     </div>
-    <detail-item repeat="{{detail in day.details}}" track-by="detail._id" detail="{{detail}}"></detail-item>
+    <detail-item repeat="{{detail in day.details}}" track-by="detail._id" detail="{{detail}}" index="{{$index}}"></detail-item>
   </div>
 </template>
 
@@ -55,7 +55,8 @@
   module.exports = {
     data: function() {
       return {
-        day: {}
+        day: {},
+        index: 0
       };
     },
     computed: {
@@ -86,7 +87,24 @@
           return 'green';
         }
         return 'red';
+      },
+      hasDetails: function() {
+        return this.day.details.length ? true : false;
       }
+    },
+    created: function() {
+      this.$on('deleteItem', function(e) {
+        this.day.details.splice(e.detail.index, 1);
+        if (this.day.details.length == 0) {
+          this.$dispatch('deleteDay', {index: this.index});
+        }
+      });
+      this.$on('editItem-index', function(e) {
+        this.$dispatch('editItem-day', {
+          date: this.day.date,
+          detail: this.day.details[e.detail.index]
+        })
+      })
     }
   }
 </script>

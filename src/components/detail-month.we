@@ -1,9 +1,9 @@
 <template>
-  <div class="month-wrap">
+  <div class="month-wrap" if="hasDates">
     <div class="year-month-box">
       <text class="year-month-text">{{item.year}}-{{item.month}}</text>
     </div>
-    <detail-day repeat="{{day in item.dates}}" day="{{day}}" track-by="day.date"></detail-day>
+    <detail-day repeat="{{day in item.dates}}" day="{{day}}" index="{{$index}}" track-by="day.date"></detail-day>
   </div>
 </template>
 
@@ -31,8 +31,31 @@
   module.exports = {
     data: function() {
       return {
-        item: {}
+        item: {},
+        index: 0
       }
+    },
+    computed: {
+      hasDates: function() {
+        return this.item.dates.length ? true : false;
+      }
+    },
+    created: function() {
+      this.$on('deleteDay', function(e) {
+        this.item.dates.splice(e.detail.index, 1);
+        if (!this.item.dates.length) {
+          this.$dispatch('deleteMonth', {index: this.index});
+        }
+      });
+      this.$on('editItem-day', function(e) {
+        this.$dispatch('editItem-detail', {
+          id: this.item._id,
+          year: this.item.year,
+          month: this.item.month,
+          date: e.detail.date,
+          detail: e.detail.detail
+        })
+      })
     }
   }
 </script>

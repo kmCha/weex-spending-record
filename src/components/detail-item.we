@@ -1,13 +1,22 @@
 <template>
-  <div class="day-box {{color}}">
-    <img src="/img/{{detail.category}}.svg" style="width:45;height:45;"></img>
-    <div class="detail-box {{position}}">
-      <text class="detail-text">{{category}}：{{amount}}元</text>
+  <container>
+    <div class="day-box {{color}}" onclick="openOptions">
+      <img src="/img/{{detail.category}}.svg" style="width:45;height:45;"></img>
+      <div class="detail-box {{position}}">
+        <text class="detail-text">{{category}}：{{amount}}元</text>
+      </div>
+      <div class="desc-box {{position}}">
+        <text class="desc-text">{{detail.desc}}</text>
+      </div>
+      <div id="delete" class="delete-box" onclick="deleteItem">
+        <img src="/img/delete.svg" style="width:25;height:25;"></img>
+      </div>
+      <div id="edit" class="edit-box" onclick="editItem">
+        <img src="/img/edit.svg" style="width:25;height:25;"></img>
+      </div>
     </div>
-    <div class="desc-box {{position}}">
-      <text class="desc-text">{{detail.desc}}</text>
-    </div>
-  </div>
+    <div if="optionsShow" id="shadow" class="shadow" onclick="closeOptions"></div>
+  </container>
 </template>
 
 <style>
@@ -31,7 +40,7 @@
     position: absolute;
     top: 0;
     height: 55;
-    width: 500;
+    width: 200;
     display: flex;
     justify-content: center;
   }
@@ -62,14 +71,120 @@
     font-size: 20;
     color: #555;
   }
+  .delete-box {
+    width: 55;
+    height: 55;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 55;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #aaa;
+    opacity: 0;
+    z-index: -5;
+  }
+  .edit-box {
+    width: 55;
+    height: 55;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 55;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #aaa;
+    opacity: 0;
+    z-index: -5;
+  }
+  .shadow {
+    width: 750;
+    height: 3000;
+    position: absolute;
+    top: -1000;
+    left: -350;
+    z-index: 1;
+    /*background-color: #000;*/
+  }
 </style>
 
 <script>
   var getCategoryCN = require('../lib/getCategoryCN.js');
+  var animation = require('@weex-module/animation');
   module.exports = {
     data: function() {
       return {
-        detail: {}
+        detail: {},
+        index: 0,
+        optionsShow: false
+      }
+    },
+    methods: {
+      deleteItem: function() {
+        console.log('delete')
+        this.$dispatch('deleteItem', {index: this.index});
+      },
+      editItem: function() {
+        console.log('edit')
+        this.$dispatch('editItem-index', {index: this.index});
+      },
+      openOptions: function() {
+        this.zIndex = 2;
+        var self = this;
+        var deleteElem = this.$el('delete');
+        var editElem = this.$el('edit');
+        this.optionsShow = true;
+        animation.transition(deleteElem, {
+          styles: {
+            right: 300,
+            opacity: 1,
+            zIndex: 2
+          },
+          duration: 200,
+          timingFunction: 'linear',
+        }, function() {
+          console.log(deleteElem.style, self.$el('shadow'))
+        });
+        animation.transition(editElem, {
+          styles: {
+            left: 300,
+            opacity: 1,
+            zIndex: 2
+          },
+          duration: 200,
+          timingFunction: 'linear',
+        }, function() {
+          console.log('animation finished')
+        })
+      },
+      closeOptions: function() {
+        this.zIndex = -5;
+        var deleteElem = this.$el('delete');
+        var editElem = this.$el('edit');
+        this.optionsShow = false;
+        animation.transition(deleteElem, {
+          styles: {
+            right: 0,
+            opacity: 0,
+            zIndex: -5
+          },
+          duration: 200,
+          timingFunction: 'linear',
+        }, function() {
+          console.log(deleteElem.style)
+        });
+        animation.transition(editElem, {
+          styles: {
+            left: 0,
+            opacity: 0,
+            zIndex: -5
+          },
+          duration: 200,
+          timingFunction: 'linear',
+        }, function() {
+        });
       }
     },
     computed: {

@@ -1,6 +1,6 @@
 <template>
   <div class="detailPage">
-    <detail-month repeat="{{item in items}}" track-by="item._id" item="{{item}}"></detail-month>
+    <detail-month repeat="{{item in items}}" track-by="item._id" index="{{$index}}" item="{{item}}"></detail-month>
     <wxc-button type="primary" size="small" value="添加" onclick="addDetails" style="background-color: #0089cd"></wxc-button>
   </div>
 </template>
@@ -41,6 +41,9 @@
       }, function(res) {
         self.items = res.data;
       })
+      this.$on('deleteMonth', function(e) {
+        this.items.splice(e.detail.index, 1);
+      });
     }
   }
 </script>

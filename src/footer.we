@@ -1,0 +1,43 @@
+<template>
+  <div class="footer">
+    <div class="adder" onclick="addDetail">
+      <img src="/img/add.svg" style="width: 50; height: 50;"></img>
+    </div>
+  </div>
+</template>
+
+<style>
+  .footer {
+    width: 750;
+    height: 100;
+    background-color: #fff;
+    position: fixed;
+    bottom: 0;
+    border-top: 1px black solid;
+  }
+  .adder {
+    width: 100;
+    height: 100;
+    border-radius: 100;
+    position: absolute;
+    top: -50;
+    left: 325;
+    background-color: #fff;
+    border: 1px black solid;
+  }
+</style>
+
+<script>
+  module.exports = {
+    data: function() {
+      return {
+
+      }
+    },
+    methods: {
+      addDetail: function() {
+        this.$dispatch('addDetail');
+      }
+    }
+  }
+</script>
