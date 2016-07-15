@@ -1,0 +1,90 @@
+<template>
+  <div class="day-box {{color}}">
+    <img src="/img/{{detail.category}}.svg" style="width:45;height:45;"></img>
+    <div class="detail-box {{position}}">
+      <text class="detail-text">{{category}}：{{amount}}元</text>
+    </div>
+    <div class="desc-box {{position}}">
+      <text class="desc-text">{{detail.desc}}</text>
+    </div>
+  </div>
+</template>
+
+<style>
+  .day-box {
+    margin-top: 30;
+    position: relative;
+    width: 55;
+    height: 55;
+    border-radius: 55;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .red {
+    background-color: #b74545;
+  }
+  .green {
+    background-color: #45b791;
+  }
+  .detail-box {
+    position: absolute;
+    top: 0;
+    height: 55;
+    width: 500;
+    display: flex;
+    justify-content: center;
+  }
+  .right {
+    left: 65;
+    text-align: left;
+  }
+  .left {
+    right: 65;
+    text-align: right;
+  }
+  .detail-text {
+    font-size: 25;
+  }
+  .desc-box {
+    position: absolute;
+    bottom: -15;
+  }
+  .right {
+    left: 65;
+    text-align: left;
+  }
+  .left {
+    right: 65;
+    text-align: right;
+  }
+  .desc-text {
+    font-size: 20;
+    color: #555;
+  }
+</style>
+
+<script>
+  var getCategoryCN = require('../lib/getCategoryCN.js');
+  module.exports = {
+    data: function() {
+      return {
+        detail: {}
+      }
+    },
+    computed: {
+      category: function() {
+        return getCategoryCN(this.detail.category);
+      },
+      position: function() {
+        return this.detail.income ? 'left' : 'right';
+      },
+      color: function() {
+        return this.detail.income? 'green' : 'red';
+      },
+      amount: function() {
+        return this.detail.amount.toFixed(2);
+      }
+    }
+  }
+</script>

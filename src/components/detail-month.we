@@ -1,0 +1,38 @@
+<template>
+  <div class="month-wrap">
+    <div class="year-month-box">
+      <text class="year-month-text">{{item.year}}-{{item.month}}</text>
+    </div>
+    <detail-day repeat="{{day in item.dates}}" day="{{day}}" track-by="day.date"></detail-day>
+  </div>
+</template>
+
+<style>
+  .month-wrap {
+    margin: 0;
+    padding: 15;
+  }
+  .year-month-box {
+    width: 220;
+    height: 60;
+    background-color: #45a0b7;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .year-month-text {
+    color: white;
+    font-size: 45;
+    font-weight: bold;
+  }
+</style>
+<script>
+  module.exports = {
+    data: function() {
+      return {
+        item: {}
+      }
+    }
+  }
+</script>

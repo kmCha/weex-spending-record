@@ -1,0 +1,92 @@
+<template>
+  <div class="day-wrap">
+    <div class="day-box {{color}}">
+      <text class="day-text">{{day.date}}</text>
+      <div class="detail-box">
+        <text class="detail-text">{{dailySummary}}</text>
+      </div>
+    </div>
+    <detail-item repeat="{{detail in day.details}}" track-by="detail._id" detail="{{detail}}"></detail-item>
+  </div>
+</template>
+
+<style>
+  .day-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .day-box {
+    margin-top: 30;
+    position: relative;
+    width: 55;
+    height: 55;
+    background-color: #45b791;
+    border-radius: 55;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .red {
+    background-color: #b74545;
+  }
+  .green {
+    background-color: #45b791;
+  }
+  .day-text {
+    color: white;
+    font-weight: bold;
+  }
+  .detail-box {
+    position: absolute;
+    left: 65;
+    top: 0;
+    height: 55;
+    width: 500;
+    display: flex;
+    justify-content: center;
+  }
+  .detail-text {
+    font-size: 25;
+  }
+</style>
+
+<script>
+  module.exports = {
+    data: function() {
+      return {
+        day: {}
+      };
+    },
+    computed: {
+      totalAmount: function() {
+        var details = this.day.details;
+        // 防止下面reduce函数不执行从而返回初始对象而不是总金额
+        if (details.length === 0) details = [{"income":false, "amount":0, "desc": ""}];
+        var initialDetail = {"income":false, "amount":0, "desc": ""}
+        var totalAmount = details.reduce(function(prev, curr) {
+          var prevAmount = prev.amount == undefined ? prev : prev.amount;
+          var currAmount = curr.amount == undefined ? curr : curr.amount;
+          if (prev.income || prev.income == 'true') prevAmount = -prevAmount;
+          if (curr.income || curr.income == 'true') currAmount = -currAmount;
+          return currAmount + prevAmount;
+        }, initialDetail);
+        return totalAmount;
+      },
+      dailySummary: function() {
+        var totalAmount = this.totalAmount;
+        if (totalAmount < 0) {
+          return '收入：' + -totalAmount.toFixed(2) + '元';
+        }
+        return '支出：' + totalAmount.toFixed(2) + '元';
+      },
+      color: function() {
+        var totalAmount = this.totalAmount;
+        if (totalAmount < 0) {
+          return 'green';
+        }
+        return 'red';
+      }
+    }
+  }
+</script>

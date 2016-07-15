@@ -1,6 +1,6 @@
 <template>
   <scroller class="ct">
-    <detail></detail>
+    <detail-page></detail-page>
   </scroller>
 </template>
 

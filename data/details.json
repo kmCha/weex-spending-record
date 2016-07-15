@@ -1,0 +1,55 @@
+[
+  {
+    "_id":"1",
+    "year":"2016",
+    "month":"07",
+    "dates":[
+      {
+        "date":"02",
+        "details": [
+          {"_id":"1", "income":false, "amount":30, "desc": "11111", "category": "taobao"},
+          {"_id":"1", "income":true, "amount":20, "desc": "22222", "category": "jiangjin"},
+          {"_id":"1", "income":false, "amount":50, "desc": "33333", "category": "taobao"},
+          {"_id":"1", "income":false, "amount":10, "desc": "44444", "category": "taobao"}
+        ]
+      },
+      {
+        "date":"03",
+        "details": [
+          {"_id":"1", "income":false, "amount":29.99, "desc": "", "category": "taobao"}
+        ]
+      },
+      {
+        "date":"04",
+        "details": [
+          {"_id":"1", "income":false, "amount":15.55, "desc": "", "category": "taobao"}
+        ]
+      }
+    ]
+  },
+  {
+    "_id":"2",
+    "year":"2016",
+    "month":"06",
+    "dates":[
+      {
+        "date":"06",
+        "details": [
+          {"_id":"1", "income":false, "amount":60, "desc": "", "category": "taobao"}
+        ]
+      },
+      {
+        "date":"07",
+        "details": [
+          {"_id":"1", "income":false, "amount":77.77, "desc": "", "category": "taobao"}
+        ]
+      },
+      {
+        "date":"08",
+        "details": [
+          {"_id":"1", "income":false, "amount":88.85, "desc": "", "category": "taobao"}
+        ]
+      }
+    ]
+  }
+]

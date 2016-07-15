@@ -1,0 +1,46 @@
+<template>
+  <div class="detailPage">
+    <detail-month repeat="{{item in items}}" track-by="item._id" item="{{item}}"></detail-month>
+    <wxc-button type="primary" size="small" value="添加" onclick="addDetails" style="background-color: #0089cd"></wxc-button>
+  </div>
+</template>
+
+<style>
+  .detailPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
+<script>
+  require('./components/detail-month.we');
+  require('weex-components');
+  var stream = require('@weex-module/stream');
+  module.exports = {
+    data: function () {
+      return {
+        items: []
+      }
+    },
+    methods: {
+      addDetails: function() {
+        this.items[this.items.length-1].details.push({
+          _id: Math.random() + '',
+          date: '01',
+          income: false,
+          amount: 1.00
+        })
+      }
+    },
+    created: function() {
+      var self = this;
+      stream.fetch({
+        method: 'get',
+        url: '/data/details.json',
+        type: 'json'
+      }, function(res) {
+        self.items = res.data;
+      })
+    }
+  }
+</script>
