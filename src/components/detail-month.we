@@ -15,7 +15,7 @@
   .year-month-box {
     width: 220;
     height: 60;
-    background-color: #45a0b7;
+    background-color: #1f96f2;
     border-radius: 50px;
     display: flex;
     justify-content: center;

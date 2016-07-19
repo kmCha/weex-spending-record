@@ -2,7 +2,7 @@
   <div class="day-wrap" if="hasDetails">
     <div class="day-box {{color}}">
       <text class="day-text">{{day.date}}</text>
-      <div class="detail-box">
+      <div class="detail-box {{position}}">
         <text class="detail-text">{{dailySummary}}</text>
       </div>
     </div>
@@ -21,17 +21,17 @@
     position: relative;
     width: 55;
     height: 55;
-    background-color: #45b791;
-    border-radius: 55;
+    /*background-color: #4ed0a5;*/
+    border-radius: 15;
     display: flex;
     justify-content: center;
     align-items: center;
   }
   .red {
-    background-color: #b74545;
+    background-color: #ec5c5c;
   }
   .green {
-    background-color: #45b791;
+    background-color: #4ed0a5;
   }
   .day-text {
     color: white;
@@ -39,12 +39,20 @@
   }
   .detail-box {
     position: absolute;
-    left: 65;
+    /*left: 65;*/
     top: 0;
     height: 55;
     width: 500;
     display: flex;
     justify-content: center;
+  }
+  .right {
+    left: 65;
+    align-items: flex-start;
+  }
+  .left {
+    right: 65;
+    align-items: flex-end;
   }
   .detail-text {
     font-size: 25;
@@ -90,6 +98,10 @@
       },
       hasDetails: function() {
         return this.day.details.length ? true : false;
+      },
+      position: function() {
+        var totalAmount = this.totalAmount;
+        return totalAmount < 0 ? 'left' : 'right';
       }
     },
     created: function() {

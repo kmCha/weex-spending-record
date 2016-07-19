@@ -1,0 +1,79 @@
+<template>
+  <div class="header">
+    <div class="income">
+      <text>收入</text>
+      <text>{{income}}</text>
+    </div>
+    <div class="month">
+      <text class="year-text">{{year}}</text>
+      <text class="month-text">{{month}}月</text>
+    </div>
+    <div class="spending">
+      <text>支出</text>
+      <text>{{spending}}</text>
+    </div>
+  </div>
+</template>
+
+<style>
+  .header {
+    width: 750;
+    height: 150;
+    padding-top: 2;
+    padding-bottom: 2;
+    background-color: rgba(255, 255, 255, 0.7);
+    position: fixed;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: stretch;
+    font-weight: bold;
+  }
+  .month {
+    flex: 1;
+    background-color: #46d4f3;
+    border-radius: 150;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .year-text {
+    color: #fff;
+    font-size: 20;
+  }
+  .month-text {
+    color: #fff;
+    font-size: 50;
+  }
+  .income {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .spending {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
+
+<script>
+  module.exports = {
+    data: function() {
+      return {
+        income: 0,
+        spending: 0,
+        year: 2016,
+        month: 06
+      }
+    },
+    methods: {
+      addDetail: function() {
+        this.$dispatch('addDetail');
+      }
+    }
+  }
+</script>

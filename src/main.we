@@ -1,17 +1,28 @@
 <template>
-  <scroller>
-    <detail-page></detail-page>
+  <div class="main">
+    <header></header>
+    <scroller style="width: {{deviceWidth}}; height: {{deviceHeight}}; padding-top: {{headerHeight}}; padding-bottom: {{footerHeight + 40}};">
+      <detail-page></detail-page>
+    </scroller>
     <footer></footer>
-  </scroller>
+  </div>
 </template>
 
 <style>
-
+  .main {
+    color: #555;
+  }
 </style>
 
 <script>
+  require('./components/footer.we');
+  require('./components/header.we');
   module.exports = {
     data: {
+      deviceWidth: 750,
+      deviceHeight: 1334,
+      headerHeight: 150,
+      footerHeight: 100
     },
     created: function() {
       this.$on('addDetail', function(e) {
@@ -19,7 +30,10 @@
       });
       this.$on('editItem-detail', function(e) {
         console.log(e.type, e);
-      })
+      });
+      this.deviceHeight = this.$getConfig().env.deviceHeight - 150;
+      this.deviceWidth = this.$getConfig().env.deviceWidth;
+      console.log(this.$getConfig().env.deviceHeight, this.$getConfig().env.deviceWidth)
     }
   }
 </script>

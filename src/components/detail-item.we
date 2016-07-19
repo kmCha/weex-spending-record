@@ -29,13 +29,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #aaa;
   }
-  .red {
-    background-color: #b74545;
+  /*.red {
+    background-color: #e38b55;
   }
   .green {
-    background-color: #45b791;
-  }
+    background-color: #afe355;
+  }*/
   .detail-box {
     position: absolute;
     top: 0;
@@ -46,26 +47,31 @@
   }
   .right {
     left: 65;
-    text-align: left;
+    /*text-align: left;*/
+    align-items: flex-start;
   }
   .left {
     right: 65;
-    text-align: right;
+    /*text-align: right;*/
+    align-items: flex-end;
   }
   .detail-text {
     font-size: 25;
   }
   .desc-box {
     position: absolute;
+    width: 200;
     bottom: -15;
   }
   .right {
     left: 65;
-    text-align: left;
+    /*text-align: left;*/
+    align-items: flex-start;
   }
   .left {
     right: 65;
-    text-align: right;
+    /*text-align: right;*/
+    align-items: flex-end;
   }
   .desc-text {
     font-size: 20;
@@ -78,12 +84,11 @@
     top: 0;
     right: 0;
     border-radius: 55;
-    display: flex;
     justify-content: center;
     align-items: center;
     background-color: #aaa;
     opacity: 0;
-    z-index: -5;
+    /*transform: scale(0.5);*/
   }
   .edit-box {
     width: 55;
@@ -92,12 +97,11 @@
     top: 0;
     left: 0;
     border-radius: 55;
-    display: flex;
     justify-content: center;
     align-items: center;
     background-color: #aaa;
     opacity: 0;
-    z-index: -5;
+    /*transform: scale(0.5);*/
   }
   .shadow {
     width: 750;
@@ -105,8 +109,7 @@
     position: absolute;
     top: -1000;
     left: -350;
-    z-index: 1;
-    /*background-color: #000;*/
+    background-color: #000;
   }
 </style>
 
@@ -131,59 +134,56 @@
         this.$dispatch('editItem-index', {index: this.index});
       },
       openOptions: function() {
-        this.zIndex = 2;
+        // this.zIndex = 2;
         var self = this;
         var deleteElem = this.$el('delete');
         var editElem = this.$el('edit');
         this.optionsShow = true;
         animation.transition(deleteElem, {
           styles: {
-            right: 300,
             opacity: 1,
-            zIndex: 2
+            transform: 'translate(-300, 0)'
           },
           duration: 200,
           timingFunction: 'linear',
         }, function() {
-          console.log(deleteElem.style, self.$el('shadow'))
+          // console.log(deleteElem.style, self.$el('shadow'))
         });
         animation.transition(editElem, {
           styles: {
-            left: 300,
             opacity: 1,
-            zIndex: 2
+            transform: 'translate(300, 0)'
           },
           duration: 200,
           timingFunction: 'linear',
         }, function() {
-          console.log('animation finished')
+          // console.log('animation finished')
         })
       },
       closeOptions: function() {
-        this.zIndex = -5;
+        // this.zIndex = -5;
         var deleteElem = this.$el('delete');
         var editElem = this.$el('edit');
         this.optionsShow = false;
         animation.transition(deleteElem, {
           styles: {
-            right: 0,
             opacity: 0,
-            zIndex: -5
+            transform: 'translate(0, 0)'
           },
           duration: 200,
           timingFunction: 'linear',
         }, function() {
-          console.log(deleteElem.style)
+          // console.log(deleteElem.style)
         });
         animation.transition(editElem, {
           styles: {
-            left: 0,
             opacity: 0,
-            zIndex: -5
+            transform: 'translate(0, 0)'
           },
           duration: 200,
           timingFunction: 'linear',
         }, function() {
+
         });
       }
     },

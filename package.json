@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "file-loader": "^0.9.0",
     "serve": "^1.4.0",
     "webpack": "^1.13.1",
     "weex-html5": "0.2.18",
