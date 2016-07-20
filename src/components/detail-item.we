@@ -15,7 +15,7 @@
         <img src="/img/edit.svg" style="width:25;height:25;"></img>
       </div>
     </div>
-    <div if="optionsShow" id="shadow" class="shadow" onclick="closeOptions"></div>
+    <!-- <div if="optionsShow" id="shadow" class="shadow" onclick="closeOptions"></div> -->
   </container>
 </template>
 
@@ -31,12 +31,6 @@
     align-items: center;
     background-color: #aaa;
   }
-  /*.red {
-    background-color: #e38b55;
-  }
-  .green {
-    background-color: #afe355;
-  }*/
   .detail-box {
     position: absolute;
     top: 0;
@@ -103,14 +97,14 @@
     opacity: 0;
     /*transform: scale(0.5);*/
   }
-  .shadow {
+  /*.shadow {
     width: 750;
     height: 3000;
     position: absolute;
     top: -1000;
     left: -350;
     background-color: #000;
-  }
+  }*/
 </style>
 
 <script>

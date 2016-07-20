@@ -1,5 +1,5 @@
 <template>
-  <div class="detailPage">
+  <div class="detailPage" onclick="handleClick">
     <detail-month repeat="{{item in items}}" track-by="item._id" index="{{$index}}" item="{{item}}"></detail-month>
     <!-- <wxc-button type="primary" size="small" value="添加" onclick="addDetails" style="background-color: #0089cd"></wxc-button> -->
   </div>
@@ -15,6 +15,7 @@
 <script>
   require('./components/detail-month.we');
   require('weex-components');
+  var store = require('./vuex/store.js');
   var stream = require('@weex-module/stream');
   module.exports = {
     data: function () {
@@ -30,6 +31,10 @@
           income: false,
           amount: 1.00
         })
+      },
+      handleClick: function() {
+        console.log('page clicked');
+        store.commit('unSelect');
       }
     },
     created: function() {
