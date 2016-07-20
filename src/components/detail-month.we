@@ -1,5 +1,5 @@
 <template>
-  <div class="month-wrap" if="hasDates">
+  <div class="month-wrap">
     <div class="year-month-box">
       <text class="year-month-text">{{item.year}}-{{item.month}}</text>
     </div>
@@ -41,18 +41,13 @@
         monthIndex: 0
       }
     },
-    computed: {
-      hasDates: function() {
-        return this.item.dates.length ? true : false;
-      }
-    },
     created: function() {
-      this.$on('deleteDay', function(e) {
-        this.item.dates.splice(e.detail.index, 1);
-        if (!this.item.dates.length) {
-          this.$dispatch('deleteMonth', {index: this.monthIndex});
-        }
-      });
+      // this.$on('deleteDay', function(e) {
+      //   this.item.dates.splice(e.detail.index, 1);
+      //   if (!this.item.dates.length) {
+      //     this.$dispatch('deleteMonth', {index: this.monthIndex});
+      //   }
+      // });
       this.$on('editItem-day', function(e) {
         this.$dispatch('editItem-detail', {
           id: this.item._id,

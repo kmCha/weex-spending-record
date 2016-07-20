@@ -1,5 +1,5 @@
 <template>
-  <div class="day-wrap" if="hasDetails">
+  <div class="day-wrap">
     <div class="day-box {{color}}">
       <text class="day-text">{{day.date}}</text>
       <div class="detail-box {{position}}">
@@ -78,8 +78,7 @@
     computed: {
       totalAmount: function() {
         var details = this.day.details;
-        // 防止下面reduce函数不执行从而返回初始对象而不是总金额
-        if (details.length === 0) details = [{"income":false, "amount":0, "desc": ""}];
+        if (details.length === 0) details = [{"income":false, "amount":0, "desc": ""}];// 防止下面reduce函数不执行从而返回初始对象而不是总金额
         var initialDetail = {"income":false, "amount":0, "desc": ""}
         var totalAmount = details.reduce(function(prev, curr) {
           var prevAmount = prev.amount == undefined ? prev : prev.amount;
@@ -104,27 +103,18 @@
         }
         return 'red';
       },
-      hasDetails: function() {
-        return this.day.details.length ? true : false;
-      },
       position: function() {
         var totalAmount = this.totalAmount;
         return totalAmount < 0 ? 'left' : 'right';
       }
     },
-    // methods: {
-    //   handle: function() {
-    //     console.log('month', this.monthIndex)
-    //     console.log('date', this.dateIndex)
-    //   }
-    // },
     created: function() {
-      this.$on('deleteItem', function(e) {
-        this.day.details.splice(e.detail.index, 1);
-        if (this.day.details.length == 0) {
-          this.$dispatch('deleteDay', {index: this.dateIndex});
-        }
-      });
+      // this.$on('deleteItem', function(e) {
+      //   this.day.details.splice(e.detail.index, 1);
+      //   if (this.day.details.length == 0) {
+      //     this.$dispatch('deleteDay', {index: this.dateIndex});
+      //   }
+      // });
       this.$on('editItem-index', function(e) {
         this.$dispatch('editItem-day', {
           date: this.day.date,

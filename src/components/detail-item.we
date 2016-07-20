@@ -116,7 +116,12 @@
       },
       deleteItem: function() {
         console.log('delete')
-        this.$dispatch('deleteItem', {index: this.detailIndex});
+        // this.$dispatch('deleteItem', {index: this.detailIndex});
+        store.dispatch('delete', {
+          monthIndex: this.monthIndex,
+          dateIndex: this.dateIndex,
+          detailIndex: this.detailIndex
+        });
       },
       handleEdit: function() {
         if (this.optionsShow) {

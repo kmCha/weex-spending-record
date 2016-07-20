@@ -2,7 +2,7 @@
   <div class="main">
     <header></header>
     <scroller style="width: {{deviceWidth}}; height: {{deviceHeight}}; padding-top: {{headerHeight}}; padding-bottom: {{footerHeight + 40}};">
-      <detail-page items="{{items}}"></detail-page>
+      <detail-page detail="{{detail}}"></detail-page>
     </scroller>
     <footer></footer>
   </div>
@@ -26,8 +26,8 @@
       footerHeight: 100
     },
     computed: {
-      items: function() {
-        return store.state.items;
+      detail: function() {
+        return store.state.detail;
       }
     },
     created: function() {
@@ -37,7 +37,7 @@
         console.log(e.type);
       });
       this.$on('editItem-detail', function(e) {
-        console.log(e.type, e);
+        // console.log(e.type, e);
       });
       this.deviceHeight = this.$getConfig().env.deviceHeight;
       this.deviceWidth = this.$getConfig().env.deviceWidth;

@@ -1,6 +1,6 @@
 <template>
   <div class="detailPage" onclick="closeOptions">
-    <detail-month id="month-{{$index}}" repeat="{{item in items}}" track-by="item._id" month-index="{{$index}}" item="{{item}}"></detail-month>
+    <detail-month id="month-{{$index}}" repeat="{{item in detail.months}}" track-by="item._id" month-index="{{$index}}" item="{{item}}"></detail-month>
     <!-- <wxc-button type="primary" size="small" value="添加" onclick="addDetails" style="background-color: #0089cd"></wxc-button> -->
   </div>
 </template>
@@ -20,7 +20,7 @@
   module.exports = {
     data: function () {
       return {
-        items: []
+        detail: {}
       }
     },
     methods: {
@@ -33,6 +33,9 @@
         })
       },
       closeOptions: function() {
+        if (store.state.monthIndex < 0 || store.state.dateIndex < 0 || store.state.detailIndex < 0) {
+          return;
+        }
         var monthIndex = store.state.monthIndex;
         var dateIndex = store.state.dateIndex;
         var detailIndex = store.state.detailIndex;
@@ -43,9 +46,9 @@
       }
     },
     created: function() {
-      this.$on('deleteMonth', function(e) {
-        this.items.splice(e.detail.index, 1);
-      });
+      // this.$on('deleteMonth', function(e) {
+      //   this.items.splice(e.detail.index, 1);
+      // });
       this.$on('closeOptions', function() {
         this.closeOptions();
       })
