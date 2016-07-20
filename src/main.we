@@ -2,7 +2,7 @@
   <div class="main">
     <header></header>
     <scroller style="width: {{deviceWidth}}; height: {{deviceHeight}}; padding-top: {{headerHeight}}; padding-bottom: {{footerHeight + 40}};">
-      <detail-page></detail-page>
+      <detail-page items="{{items}}"></detail-page>
     </scroller>
     <footer></footer>
   </div>
@@ -17,6 +17,7 @@
 <script>
   require('./components/footer.we');
   require('./components/header.we');
+  var store = require('./vuex/store.js');
   module.exports = {
     data: {
       deviceWidth: 750,
@@ -24,16 +25,22 @@
       headerHeight: 150,
       footerHeight: 100
     },
+    computed: {
+      items: function() {
+        return store.state.items;
+      }
+    },
     created: function() {
+      store.dispatch('getInitialData');
+      // store.commit('setItems');
       this.$on('addDetail', function(e) {
         console.log(e.type);
       });
       this.$on('editItem-detail', function(e) {
         console.log(e.type, e);
       });
-      this.deviceHeight = this.$getConfig().env.deviceHeight - 150;
+      this.deviceHeight = this.$getConfig().env.deviceHeight;
       this.deviceWidth = this.$getConfig().env.deviceWidth;
-      console.log(this.$getConfig().env.deviceHeight, this.$getConfig().env.deviceWidth)
     }
   }
 </script>

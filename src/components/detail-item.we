@@ -1,6 +1,6 @@
 <template>
   <container>
-    <div class="day-box {{color}}" onclick="openOptions">
+    <div class="day-box {{color}}" onclick="clickDayBox">
       <img src="/img/{{detail.category}}.svg" style="width:45;height:45;"></img>
       <div class="detail-box {{position}}">
         <text class="detail-text">{{category}}：{{amount}}元</text>
@@ -15,7 +15,6 @@
         <img src="/img/edit.svg" style="width:25;height:25;"></img>
       </div>
     </div>
-    <!-- <div if="optionsShow" id="shadow" class="shadow" onclick="closeOptions"></div> -->
   </container>
 </template>
 
@@ -108,35 +107,54 @@
 </style>
 
 <script>
+  var store = require('../vuex/store.js');
   var getCategoryCN = require('../lib/getCategoryCN.js');
   var animation = require('@weex-module/animation');
   module.exports = {
     data: function() {
       return {
         detail: {},
-        index: 0,
-        optionsShow: false
+        detailIndex: 0,
+        dateIndex: 0,
+        monthIndex: 0
       }
     },
     methods: {
       deleteItem: function() {
         console.log('delete')
-        this.$dispatch('deleteItem', {index: this.index});
+        this.$dispatch('deleteItem', {index: this.detailIndex});
       },
       editItem: function() {
         console.log('edit')
-        this.$dispatch('editItem-index', {index: this.index});
+        this.$dispatch('editItem-index', {index: this.detailIndex});
+      },
+      clickDayBox: function() {
+        var monthIndex = store.state.monthIndex;
+        var dateIndex = store.state.dateIndex;
+        var detailIndex = store.state.detailIndex;
+        if (monthIndex < 0 || dateIndex < 0 || detailIndex < 0) { // 无option已打开
+          store.commit('select', {
+            monthIndex: this.monthIndex,
+            dateIndex: this.dateIndex,
+            detailIndex: this.detailIndex
+          });
+          this.openOptions();
+        } else if (monthIndex === this.monthIndex && dateIndex === this.dateIndex && detailIndex === this.detailIndex) {  // 本option已打开
+          this.closeOptions();
+          store.commit('unselect');
+        } else {              // 其他option已打开
+          this.$dispatch('closeOptions');
+        }
       },
       openOptions: function() {
         // this.zIndex = 2;
         var self = this;
         var deleteElem = this.$el('delete');
         var editElem = this.$el('edit');
-        this.optionsShow = true;
         animation.transition(deleteElem, {
           styles: {
             opacity: 1,
-            transform: 'translate(-300, 0)'
+            transform: 'translate(-300px, 0)'
           },
           duration: 200,
           timingFunction: 'linear',
@@ -146,7 +164,7 @@
         animation.transition(editElem, {
           styles: {
             opacity: 1,
-            transform: 'translate(300, 0)'
+            transform: 'translate(300px, 0)'
           },
           duration: 200,
           timingFunction: 'linear',
@@ -158,7 +176,6 @@
         // this.zIndex = -5;
         var deleteElem = this.$el('delete');
         var editElem = this.$el('edit');
-        this.optionsShow = false;
         animation.transition(deleteElem, {
           styles: {
             opacity: 0,
@@ -179,6 +196,7 @@
         }, function() {
 
         });
+        store.commit('unselect');
       }
     },
     computed: {

@@ -3,7 +3,13 @@
     <div class="year-month-box">
       <text class="year-month-text">{{item.year}}-{{item.month}}</text>
     </div>
-    <detail-day repeat="{{day in item.dates}}" day="{{day}}" index="{{$index}}" track-by="day.date"></detail-day>
+    <detail-day id="date-{{$index}}"
+                repeat="{{day in item.dates}}"
+                day="{{day}}"
+                month-index="{{monthIndex}}"
+                date-index="{{$index}}"
+                track-by="day.date">
+    </detail-day>
   </div>
 </template>
 
@@ -32,7 +38,7 @@
     data: function() {
       return {
         item: {},
-        index: 0
+        monthIndex: 0
       }
     },
     computed: {
@@ -44,7 +50,7 @@
       this.$on('deleteDay', function(e) {
         this.item.dates.splice(e.detail.index, 1);
         if (!this.item.dates.length) {
-          this.$dispatch('deleteMonth', {index: this.index});
+          this.$dispatch('deleteMonth', {index: this.monthIndex});
         }
       });
       this.$on('editItem-day', function(e) {

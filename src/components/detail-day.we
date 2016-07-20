@@ -6,7 +6,14 @@
         <text class="detail-text">{{dailySummary}}</text>
       </div>
     </div>
-    <detail-item repeat="{{detail in day.details}}" track-by="detail._id" detail="{{detail}}" index="{{$index}}"></detail-item>
+    <detail-item id="detail-{{$index}}"
+                 repeat="{{detail in day.details}}"
+                 track-by="detail._id"
+                 detail="{{detail}}"
+                 month-index="{{monthIndex}}"
+                 date-index="{{dateIndex}}"
+                 detail-index="{{$index}}">
+    </detail-item>
   </div>
 </template>
 
@@ -64,7 +71,8 @@
     data: function() {
       return {
         day: {},
-        index: 0
+        dateIndex: 0,
+        monthIndex: 0
       };
     },
     computed: {
@@ -104,11 +112,17 @@
         return totalAmount < 0 ? 'left' : 'right';
       }
     },
+    // methods: {
+    //   handle: function() {
+    //     console.log('month', this.monthIndex)
+    //     console.log('date', this.dateIndex)
+    //   }
+    // },
     created: function() {
       this.$on('deleteItem', function(e) {
         this.day.details.splice(e.detail.index, 1);
         if (this.day.details.length == 0) {
-          this.$dispatch('deleteDay', {index: this.index});
+          this.$dispatch('deleteDay', {index: this.dateIndex});
         }
       });
       this.$on('editItem-index', function(e) {

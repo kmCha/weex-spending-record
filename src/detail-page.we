@@ -1,6 +1,6 @@
 <template>
-  <div class="detailPage" onclick="handleClick">
-    <detail-month repeat="{{item in items}}" track-by="item._id" index="{{$index}}" item="{{item}}"></detail-month>
+  <div class="detailPage" onclick="closeOptions">
+    <detail-month id="month-{{$index}}" repeat="{{item in items}}" track-by="item._id" month-index="{{$index}}" item="{{item}}"></detail-month>
     <!-- <wxc-button type="primary" size="small" value="添加" onclick="addDetails" style="background-color: #0089cd"></wxc-button> -->
   </div>
 </template>
@@ -32,81 +32,24 @@
           amount: 1.00
         })
       },
-      handleClick: function() {
-        console.log('page clicked');
-        store.commit('unSelect');
+      closeOptions: function() {
+        var monthIndex = store.state.monthIndex;
+        var dateIndex = store.state.dateIndex;
+        var detailIndex = store.state.detailIndex;
+        var monthElement = this.$('month-' + monthIndex);
+        var dateElement = monthElement.$('date-' + dateIndex);
+        var detailElement = dateElement.$('detail-' + detailIndex);
+        detailElement.closeOptions();
       }
     },
     created: function() {
-      var self = this;
-      self.items = detail;
-      stream.fetch({
-        method: 'get',
-        url: '/data/details.json',
-        type: 'json'
-      }, function(res) {
-        // self.items = res.data;
-      })
       this.$on('deleteMonth', function(e) {
         this.items.splice(e.detail.index, 1);
       });
+      this.$on('closeOptions', function() {
+        this.closeOptions();
+      })
     }
   }
-  var detail = [
-    {
-      "_id":"1",
-      "year":"2016",
-      "month":"07",
-      "dates":[
-        {
-          "date":"02",
-          "details": [
-            {"_id":"1", "income":false, "amount":30, "desc": "11111", "category": "taobao"},
-            {"_id":"1", "income":true, "amount":20, "desc": "222222222222", "category": "jiangjin"},
-            {"_id":"1", "income":false, "amount":50, "desc": "333", "category": "taobao"},
-            {"_id":"1", "income":false, "amount":10, "desc": "444", "category": "taobao"}
-          ]
-        },
-        {
-          "date":"03",
-          "details": [
-            {"_id":"1", "income":false, "amount":29.99, "desc": "", "category": "taobao"}
-          ]
-        },
-        {
-          "date":"04",
-          "details": [
-            {"_id":"1", "income":false, "amount":15.55, "desc": "", "category": "taobao"},
-            {"_id":"1", "income":true, "amount":15.55, "desc": "", "category": "taobao"}
-          ]
-        }
-      ]
-    },
-    {
-      "_id":"2",
-      "year":"2016",
-      "month":"06",
-      "dates":[
-        {
-          "date":"06",
-          "details": [
-            {"_id":"1", "income":false, "amount":60, "desc": "", "category": "taobao"}
-          ]
-        },
-        {
-          "date":"07",
-          "details": [
-            {"_id":"1", "income":false, "amount":77.77, "desc": "", "category": "taobao"}
-          ]
-        },
-        {
-          "date":"08",
-          "details": [
-            {"_id":"1", "income":false, "amount":88.85, "desc": "", "category": "taobao"}
-          ]
-        }
-      ]
-    }
-  ]
 
 </script>
