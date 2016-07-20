@@ -8,10 +8,10 @@
       <div class="desc-box {{position}}">
         <text class="desc-text">{{detail.desc}}</text>
       </div>
-      <div id="delete" class="delete-box" onclick="deleteItem">
+      <div id="delete" class="delete-box" onclick="handleDelete">
         <img src="/img/delete.svg" style="width:25;height:25;"></img>
       </div>
-      <div id="edit" class="edit-box" onclick="editItem">
+      <div id="edit" class="edit-box" onclick="handleEdit">
         <img src="/img/edit.svg" style="width:25;height:25;"></img>
       </div>
     </div>
@@ -40,12 +40,10 @@
   }
   .right {
     left: 65;
-    /*text-align: left;*/
     align-items: flex-start;
   }
   .left {
     right: 65;
-    /*text-align: right;*/
     align-items: flex-end;
   }
   .detail-text {
@@ -58,12 +56,10 @@
   }
   .right {
     left: 65;
-    /*text-align: left;*/
     align-items: flex-start;
   }
   .left {
     right: 65;
-    /*text-align: right;*/
     align-items: flex-end;
   }
   .desc-text {
@@ -81,7 +77,6 @@
     align-items: center;
     background-color: #aaa;
     opacity: 0;
-    /*transform: scale(0.5);*/
   }
   .edit-box {
     width: 55;
@@ -94,16 +89,7 @@
     align-items: center;
     background-color: #aaa;
     opacity: 0;
-    /*transform: scale(0.5);*/
   }
-  /*.shadow {
-    width: 750;
-    height: 3000;
-    position: absolute;
-    top: -1000;
-    left: -350;
-    background-color: #000;
-  }*/
 </style>
 
 <script>
@@ -116,13 +102,28 @@
         detail: {},
         detailIndex: 0,
         dateIndex: 0,
-        monthIndex: 0
+        monthIndex: 0,
+        optionsShow: false
       }
     },
     methods: {
+      handleDelete: function() {
+        if (this.optionsShow) {
+          this.deleteItem();
+        } else {
+          this.clickDayBox();
+        }
+      },
       deleteItem: function() {
         console.log('delete')
         this.$dispatch('deleteItem', {index: this.detailIndex});
+      },
+      handleEdit: function() {
+        if (this.optionsShow) {
+          this.editItem();
+        } else {
+          this.clickDayBox();
+        }
       },
       editItem: function() {
         console.log('edit')
@@ -147,7 +148,7 @@
         }
       },
       openOptions: function() {
-        // this.zIndex = 2;
+        this.optionsShow = true;
         var self = this;
         var deleteElem = this.$el('delete');
         var editElem = this.$el('edit');
@@ -173,9 +174,9 @@
         })
       },
       closeOptions: function() {
-        // this.zIndex = -5;
         var deleteElem = this.$el('delete');
         var editElem = this.$el('edit');
+        var self = this;
         animation.transition(deleteElem, {
           styles: {
             opacity: 0,
@@ -185,6 +186,7 @@
           timingFunction: 'linear',
         }, function() {
           // console.log(deleteElem.style)
+          self.optionsShow = false;
         });
         animation.transition(editElem, {
           styles: {
@@ -194,7 +196,7 @@
           duration: 200,
           timingFunction: 'linear',
         }, function() {
-
+          self.optionsShow = false;
         });
         store.commit('unselect');
       }
