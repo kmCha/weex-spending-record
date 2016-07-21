@@ -2,12 +2,12 @@ var Vuex = require('vuex');
 var detail = {
   months: [
     {
-      "_id":"1",
+      "_id":"243t5rethtdyui",
       "year":"2016",
       "month":"07",
       "dates":[
         {
-          "date":"02",
+          "date":"12",
           "details": [
             {"_id":"15346467657", "income":false, "amount":30, "desc": "11111", "category": "taobao"},
             {"_id":"3464575678", "income":true, "amount":20, "desc": "222222222222", "category": "jiangjin"},
@@ -16,13 +16,13 @@ var detail = {
           ]
         },
         {
-          "date":"03",
+          "date":"13",
           "details": [
             {"_id":"7679788563", "income":false, "amount":29.99, "desc": "", "category": "taobao"}
           ]
         },
         {
-          "date":"04",
+          "date":"14",
           "details": [
             {"_id":"132egrtgrtj", "income":false, "amount":15.55, "desc": "", "category": "taobao"},
             {"_id":"456y56h4rw", "income":true, "amount":15.55, "desc": "", "category": "taobao"}
@@ -31,7 +31,7 @@ var detail = {
       ]
     },
     {
-      "_id":"2",
+      "_id":"345645ute5yjhdrg",
       "year":"2016",
       "month":"06",
       "dates":[
@@ -54,6 +54,31 @@ var detail = {
           ]
         }
       ]
+    },
+    {
+      "_id":"ehr57y547y45y",
+      "year":"2016",
+      "month":"08",
+      "dates":[
+        {
+          "date":"06",
+          "details": [
+            {"_id":"4547yu56u56", "income":false, "amount":60, "desc": "", "category": "taobao"}
+          ]
+        },
+        {
+          "date":"07",
+          "details": [
+            {"_id":"56eu67jg56u56yhrer45ty", "income":false, "amount":77.77, "desc": "", "category": "taobao"}
+          ]
+        },
+        {
+          "date":"08",
+          "details": [
+            {"_id":"45y76345345iyjhnfg", "income":false, "amount":88.85, "desc": "", "category": "taobao"}
+          ]
+        }
+      ]
     }
   ]
 };
@@ -61,7 +86,8 @@ var state = {
   monthIndex: -1,
   dateIndex: -1,
   detailIndex: -1,
-  detail: {}
+  detail: {},
+  displayedMonthIndex: [0]
 };
 
 var mutations = {
@@ -93,6 +119,10 @@ var mutations = {
     if (dateArr.length === 0) {
       monthArr.splice(mIndex, 1);
     }
+  },
+  changeDisplay: function(state, index) {
+    state.displayedMonthIndex.push(index);
+    state.displayedMonthIndex.shift();
   }
 }
 
@@ -109,8 +139,16 @@ var actions = {
   }
 }
 
+var getters = {
+  year: function(store) {
+    return store.state.detail.months[store.state.displayedMonthIndex].year;
+  }
+};
+
+
 module.exports = new Vuex.Store({
   state: state,
   mutations: mutations,
-  actions: actions
+  actions: actions,
+  getters: getters
 })

@@ -58,7 +58,7 @@
     align-items: flex-start;
   }
   .left {
-    right: 65;
+    left: -510;
     align-items: flex-end;
   }
   .detail-text {
@@ -98,10 +98,7 @@
       },
       color: function() {
         var totalAmount = this.totalAmount;
-        if (totalAmount < 0) {
-          return 'green';
-        }
-        return 'red';
+        return totalAmount < 0 ? 'green' : 'red';
       },
       position: function() {
         var totalAmount = this.totalAmount;

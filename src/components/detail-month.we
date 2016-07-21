@@ -1,7 +1,7 @@
 <template>
   <div class="month-wrap">
-    <div class="year-month-box">
-      <text class="year-month-text">{{item.year}}-{{item.month}}</text>
+    <div class="year-month-box" ondisappear="handleDis" onappear="handleAppear">
+      <!-- <text class="year-month-text">{{item.year}}-{{item.month}}</text> -->
     </div>
     <detail-day id="date-{{$index}}"
                 repeat="{{day in item.dates}}"
@@ -17,12 +17,18 @@
   .month-wrap {
     margin: 0;
     padding: 15;
+    width: 400;
+    border-bottom-color: #aaa;
+    border-bottom-style: dashed;
+    border-bottom-width: 3;
   }
   .year-month-box {
-    width: 220;
-    height: 60;
+    position: absolute;
+    top: -150;
+    width: 0;
+    height: 0;
     background-color: #1f96f2;
-    border-radius: 50px;
+    border-radius: 75px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,11 +40,26 @@
   }
 </style>
 <script>
+  var store = require('../vuex/store.js');
   module.exports = {
     data: function() {
       return {
         item: {},
         monthIndex: 0
+      }
+    },
+    methods: {
+      handleDis: function(e) {
+        if (e.direction === 'up') {
+          store.commit('changeDisplay', this.monthIndex);
+        }
+      },
+      handleAppear: function(e) {
+        if (e.direction === 'down') {
+          if (this.monthIndex > 0) {
+            store.commit('changeDisplay', this.monthIndex - 1);
+          }
+        }
       }
     },
     created: function() {

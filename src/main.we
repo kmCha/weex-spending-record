@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <header></header>
+    <header display-index="{{displayIndexArr}}"></header>
     <scroller style="width: {{deviceWidth}}; height: {{deviceHeight}}; padding-top: {{headerHeight}}; padding-bottom: {{footerHeight + 40}};">
       <detail-page detail="{{detail}}"></detail-page>
     </scroller>
@@ -28,6 +28,9 @@
     computed: {
       detail: function() {
         return store.state.detail;
+      },
+      displayIndexArr: function() {
+        return store.state.displayedMonthIndex;
       }
     },
     created: function() {

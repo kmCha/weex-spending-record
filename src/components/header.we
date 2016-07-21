@@ -61,18 +61,60 @@
 </style>
 
 <script>
+  var store = require('../vuex/store.js');
   module.exports = {
     data: function() {
       return {
-        income: 0,
-        spending: 0,
-        year: 2016,
-        month: 06
+        displayIndex: [0]
       }
     },
     methods: {
       addDetail: function() {
         this.$dispatch('addDetail');
+      }
+    },
+    computed: {
+      year: function () {
+        console.log('year')
+        var index = this.displayIndex[0];
+        return store.state.detail.months[index].year;
+      },
+      month: function() {
+        var index = this.displayIndex[0];
+        return store.state.detail.months[index].month;
+      },
+      income: function() {
+        console.log('income')
+        var income = 0;
+        var index = this.displayIndex[0];
+        var month = store.state.detail.months[index];
+        var datesArr = month.dates;
+        var detailsArr;
+        datesArr.forEach(function(day) {
+          detailsArr = day.details;
+          detailsArr.forEach(function(detail) {
+            if (detail.income) {
+              income += detail.amount;
+            }
+          });
+        });
+        return income;
+      },
+      spending: function() {
+        var spending = 0;
+        var index = this.displayIndex[0];
+        var month = store.state.detail.months[index];
+        var datesArr = month.dates;
+        var detailsArr;
+        datesArr.forEach(function(day) {
+          detailsArr = day.details;
+          detailsArr.forEach(function(detail) {
+            if (!detail.income) {
+              spending += detail.amount;
+            }
+          });
+        });
+        return spending;
       }
     }
   }

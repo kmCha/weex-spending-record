@@ -59,7 +59,7 @@
     align-items: flex-start;
   }
   .left {
-    right: 65;
+    left: -210;
     align-items: flex-end;
   }
   .desc-text {
@@ -115,7 +115,7 @@
         }
       },
       deleteItem: function() {
-        console.log('delete')
+        // console.log('delete')
         // this.$dispatch('deleteItem', {index: this.detailIndex});
         store.dispatch('delete', {
           monthIndex: this.monthIndex,
