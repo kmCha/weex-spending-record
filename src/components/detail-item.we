@@ -1,7 +1,7 @@
 <template>
   <container>
     <div class="day-box {{color}}" onclick="clickDayBox">
-      <img src="/img/{{detail.category}}.svg" style="width:45;height:45;"></img>
+      <img src="http://30.10.192.90:8081/img/{{detail.category}}.png" style="width:45;height:45;"></img>
       <div class="detail-box {{position}}">
         <text class="detail-text">{{category}}：{{amount}}元</text>
       </div>
@@ -9,10 +9,10 @@
         <text class="desc-text">{{detail.desc}}</text>
       </div>
       <div id="delete" class="delete-box" onclick="handleDelete">
-        <img src="/img/delete.svg" style="width:25;height:25;"></img>
+        <img src="http://30.10.192.90:8081/img/delete.png" style="width:45;height:45;"></img>
       </div>
       <div id="edit" class="edit-box" onclick="handleEdit">
-        <img src="/img/edit.svg" style="width:25;height:25;"></img>
+        <img src="http://30.10.192.90:8081/img/edit.png" style="width:35;height:35;"></img>
       </div>
     </div>
   </container>

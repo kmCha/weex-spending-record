@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
     <div class="adder" onclick="addDetail">
-      <img src="/img/add.svg" style="width: 50; height: 50;"></img>
+      <img src="http://30.10.192.90:8081/img/add.png" style="width: 60; height: 60;"></img>
     </div>
   </div>
 </template>
