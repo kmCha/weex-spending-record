@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
     <div class="adder" onclick="addDetail">
-      <img src="http://30.10.192.90:8081/img/add.png" style="width: 60; height: 60;"></img>
+      <img src="{{baseUrl}}img/add.png" style="width: 60; height: 60;"></img>
     </div>
   </div>
 </template>
@@ -11,7 +11,7 @@
     width: 750;
     height: 100;
     background-color: rgba(255, 255, 255, 0.7);
-    position: fixed;
+    position: absolute;
     bottom: 0;
     border-style: solid;
     border-top-width: 3;
@@ -35,16 +35,20 @@
 </style>
 
 <script>
+  var store = require('../vuex/store.js');
   module.exports = {
     data: function() {
       return {
-
+        baseUrl: ''
       }
     },
     methods: {
       addDetail: function() {
         this.$dispatch('addDetail');
       }
+    },
+    created: function() {
+      this.baseUrl = store.state.baseUrl;
     }
   }
 </script>

@@ -1,0 +1,65 @@
+<template>
+  <div id="page" class="edit-page-box" style="width: {{deviceWidth}}; height: {{deviceHeight}}; top: {{deviceHeight}};">
+    <div class="close-box" onclick="closePage">
+      <img src="{{baseUrl}}img/delete.png" style="width: 45; height: 45;"></img>
+    </div>
+  </div>
+</template>
+
+<style>
+  .edit-page-box {
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    left: 0;
+  }
+  .close-box {
+    position: absolute;
+    right: 50;
+    top: 50;
+  }
+</style>
+
+<script>
+  var animation = require('@weex-module/animation');
+  var store = require('./vuex/store.js');
+  module.exports = {
+    data: function() {
+      return {
+        deviceHeight: 0,
+        deviceWidth: 0,
+        baseUrl: ''
+      }
+    },
+    methods: {
+      openPage: function() {
+        var pageElem = this.$el('page');
+        var that = this;
+        animation.transition(pageElem, {
+          styles: {
+            transform: 'translate(0, -' + this.deviceHeight + 'px)'
+          },
+          duration: 200,
+          timingFunction: 'linear',
+        }, function() {
+          // this.baseUrl = store.state.baseUrl;
+        });
+      },
+      closePage: function() {
+        var pageElem = this.$el('page');
+        animation.transition(pageElem, {
+          styles: {
+            // transform: 'translate(0, ' + this.deviceHeight + 'px)'
+            transform: 'translate(0, ' + this.deviceHeight + 'px)'
+          },
+          duration: 200,
+          timingFunction: 'linear',
+        }, function() {
+          // console.log('animation finished')
+        });
+      }
+    },
+    created: function() {
+      this.bundleUrl = store.state.bundleUrl;
+    }
+  }
+</script>

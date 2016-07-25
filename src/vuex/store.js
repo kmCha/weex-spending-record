@@ -87,7 +87,8 @@ var state = {
   dateIndex: -1,
   detailIndex: -1,
   detail: {},
-  displayedMonthIndex: [0]
+  displayedMonthIndex: [0],
+  baseUrl: ''
 };
 
 var mutations = {
@@ -123,6 +124,9 @@ var mutations = {
   changeDisplay: function(state, index) {
     state.displayedMonthIndex.push(index);
     state.displayedMonthIndex.shift();
+  },
+  setBaseUrl: function(state, url) {
+    state.baseUrl = url;
   }
 }
 
