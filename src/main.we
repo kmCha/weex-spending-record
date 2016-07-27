@@ -3,7 +3,7 @@
     <scroller style="width: {{deviceWidth}}; height: {{deviceHeight}}; padding-top: {{headerHeight}}; padding-bottom: {{footerHeight + 40}};">
       <detail-page></detail-page>
     </scroller>
-    <header display-index="{{displayIndexArr}}"></header>
+    <header></header>
     <footer></footer>
     <edit-page id="editPage" device-width="{{deviceWidth}}" device-height="{{deviceHeight}}"></edit-page>
   </div>
@@ -26,11 +26,6 @@
       deviceHeight: 1334,
       headerHeight: 150,
       footerHeight: 100
-    },
-    computed: {
-      displayIndexArr: function() {
-        return store.state.displayedMonthIndex;
-      }
     },
     created: function() {
       store.dispatch('getInitialData');

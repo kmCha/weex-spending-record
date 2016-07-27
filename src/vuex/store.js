@@ -87,7 +87,7 @@ var state = {
   dateIndex: -1,
   detailIndex: -1,
   detail: {},
-  displayedMonthIndex: [0],
+  displayedMonthIndex: 0,
   baseUrl: ''
 };
 
@@ -122,8 +122,9 @@ var mutations = {
     }
   },
   changeDisplay: function(state, index) {
-    state.displayedMonthIndex.push(index);
-    state.displayedMonthIndex.shift();
+    // state.displayedMonthIndex.push(index);
+    // state.displayedMonthIndex.shift();
+    state.displayedMonthIndex = index;
   },
   setBaseUrl: function(state, url) {
     state.baseUrl = url;
