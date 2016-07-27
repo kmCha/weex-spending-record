@@ -98,7 +98,7 @@
             }
           });
         });
-        return income;
+        return income.toFixed(2);
       },
       spending: function() {
         var spending = 0;
@@ -114,7 +114,7 @@
             }
           });
         });
-        return spending;
+        return spending.toFixed(2);
       }
     }
   }

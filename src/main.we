@@ -19,7 +19,7 @@
   require('./components/footer.we');
   require('./components/header.we');
   var store = require('./vuex/store.js');
-  var modal = require('@weex-module/modal');
+  // var modal = require('@weex-module/modal');
   module.exports = {
     data: {
       deviceWidth: 750,
@@ -37,7 +37,7 @@
       var slashIndex = this.$getConfig().bundleUrl.indexOf('/', 7);
       var baseUrl = this.$getConfig().bundleUrl.slice(0, slashIndex + 1);
       store.commit('setBaseUrl', baseUrl);
-      modal.toast({'message': baseUrl})
+      // modal.toast({'message': baseUrl})
       // store.commit('setItems');
       this.$on('addDetail', function(e) {
         console.log(e.type);
