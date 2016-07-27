@@ -1,10 +1,10 @@
 <template>
   <div class="month-wrap">
     <div class="year-month-box" ondisappear="handleDis" onappear="handleAppear">
-      <!-- <text class="year-month-text">{{item.year}}-{{item.month}}</text> -->
+      <!-- <text class="year-month-text">{{month.year}}-{{month.month}}</text> -->
     </div>
     <detail-day id="date-{{$index}}"
-                repeat="{{day in item.dates}}"
+                repeat="{{day in month.dates}}"
                 day="{{day}}"
                 month-index="{{monthIndex}}"
                 date-index="{{$index}}"
@@ -44,7 +44,7 @@
   module.exports = {
     data: function() {
       return {
-        item: {},
+        month: {},
         monthIndex: 0
       }
     },
@@ -64,16 +64,16 @@
     },
     created: function() {
       // this.$on('deleteDay', function(e) {
-      //   this.item.dates.splice(e.detail.index, 1);
-      //   if (!this.item.dates.length) {
+      //   this.month.dates.splice(e.detail.index, 1);
+      //   if (!this.month.dates.length) {
       //     this.$dispatch('deleteMonth', {index: this.monthIndex});
       //   }
       // });
       this.$on('editItem-day', function(e) {
         this.$dispatch('editItem-detail', {
-          id: this.item._id,
-          year: this.item.year,
-          month: this.item.month,
+          id: this.month._id,
+          year: this.month.year,
+          month: this.month.month,
           date: e.detail.date,
           detail: e.detail.detail
         })

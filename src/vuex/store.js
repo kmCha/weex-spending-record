@@ -110,15 +110,15 @@ var mutations = {
     var mIndex = index.monthIndex;
     var dIndex = index.dateIndex;
     var dtIndex = index.detailIndex;
-    var monthArr = state.detail.months;
-    var dateArr = state.detail.months[mIndex].dates;
-    var detailArr = state.detail.months[mIndex].dates[dIndex].details;
-    detailArr.splice(dtIndex, 1);
-    if (detailArr.length === 0) {
-      dateArr.splice(dIndex, 1);
+    var months = state.detail.months;
+    var dates = state.detail.months[mIndex].dates;
+    var details = state.detail.months[mIndex].dates[dIndex].details;
+    details.splice(dtIndex, 1);
+    if (details.length === 0) {
+      dates.splice(dIndex, 1);
     }
-    if (dateArr.length === 0) {
-      monthArr.splice(mIndex, 1);
+    if (dates.length === 0) {
+      months.splice(mIndex, 1);
     }
   },
   changeDisplay: function(state, index) {

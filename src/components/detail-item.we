@@ -104,7 +104,8 @@
         dateIndex: 0,
         monthIndex: 0,
         optionsShow: false,
-        baseUrl: ''
+        baseUrl: '',
+        state: store.state
       }
     },
     methods: {
@@ -208,6 +209,11 @@
       }
     },
     computed: {
+      // detail: {
+      //   get: function() {
+      //     return store.state.detail.months[this.monthIndex].dates[this.dateIndex].details[this.detailIndex];
+      //   }
+      // },
       category: function() {
         return getCategoryCN(this.detail.category);
       },
