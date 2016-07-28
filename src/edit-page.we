@@ -1,8 +1,37 @@
 <template>
   <div id="page" class="edit-page-box" style="width: {{deviceWidth}}; height: {{deviceHeight}}; top: {{deviceHeight}};">
     <div class="close-box" onclick="closePage">
-      <img src="{{baseUrl}}img/delete.png" style="width: 45; height: 45;"></img>
+      <img src="{{baseUrl}}img/delete.png" style="width: 60; height: 60;"></img>
     </div>
+    <div class="alter-box">
+      <div class="income-box" onclick="incomeClicked">
+        <text class="income-box-text income-{{boxSelected}}">收入</text>
+      </div>
+      <div class="spending-box" onclick="spendingClicked">
+        <text class="spending-box-text spending-{{boxSelected}}">支出</text>
+      </div>
+    </div>
+    <div class="input-box">
+      <div class="input-icon-box">
+        <div class="input-icon-img-box">
+          <img class="input-icon-img" src="{{baseUrl}}img/{{categorySelected}}.png"></img>
+        </div>
+        <text class="input-icon-text">{{categorySelectedCN}}</text>
+      </div>
+      <div class="input-amount-box">
+        <text class="input-amount-text">￥{{inputAmount}}</text>
+      </div>
+    </div>
+    <scroller class="categories-scroller">
+      <div class="categories-wrapper">
+        <div class="category-box" repeat="category in categories" onclick="clickCategoryBox">
+          <div class="category-icon-box">
+            <img class="category-icon-img" src="{{baseUrl}}img/{{category.name}}.png"></img>
+          </div>
+          <text class="category-box-text">{{category.nameCN}}</text>
+        </div>
+      </div>
+    </scroller>
   </div>
 </template>
 
@@ -11,15 +40,146 @@
     background-color: rgba(0, 0, 0, 0.7);
     position: absolute;
     left: 0;
+    align-items: center;
   }
   .close-box {
     position: absolute;
+    width: 45;
+    height: 45;
     right: 50;
-    top: 50;
+    top: 45;
+  }
+  .alter-box {
+    flex-direction: row;
+    margin-top: 50;
+    height: 52;
+    width: 250;
+    border-color: rgba(200, 200, 200, 0.5);
+    border-radius: 20;
+    border-width: 1;
+    border-style: solid;
+  }
+  .income-box {
+    height: 50;
+    width: 125;
+    line-height: 50;
+    justify-content: center;
+    align-items: center;
+    border-right-style: solid;
+    border-right-color: rgba(200, 200, 200, 0.5);
+    border-right-width: 1;
+  }
+  .income-income {
+    color: #1f96f2;
+  }
+  .income-box-text {
+    color: #fff;
+  }
+  .spending-box {
+    height: 50;
+    width: 125;
+    color: #fff;
+    line-height: 50;
+    justify-content: center;
+    align-items: center;
+  }
+  .spending-spending {
+    color: #1f96f2;
+  }
+  .spending-box-text {
+    color: #fff;
+  }
+  .input-box {
+    margin-top: 15;
+    width: 750;
+    height: 120;
+    border-top-width: 2;
+    border-top-color: rgba(200, 200, 200, 0.5);
+    border-top-style: solid;
+    border-bottom-width: 2;
+    border-bottom-color: rgba(200, 200, 200, 0.5);
+    border-bottom-style: solid;
+    flex-direction: row;
+  }
+  .input-icon-box {
+    height: 120;
+    width: 375;
+    padding-left: 20;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .input-icon-img-box {
+    width: 70;
+    height: 70;
+    border-radius: 70;
+    background-color: #129756;
+    justify-content: center;
+    align-items: center;
+  }
+  .input-icon-img {
+    width: 40;
+    height: 40;
+  }
+  .input-icon-text {
+    color: #ddd;
+    font-size: 40;
+    margin-left: 15;
+  }
+  .input-amount-box {
+    height: 120;
+    width: 375;
+    padding-right: 20;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .input-amount-text {
+    font-size: 70;
+    color: #fff;
+  }
+  .categories-scroller {
+    width: 750;
+    height: 970;
+  }
+  .categories-wrapper {
+    width: 750;
+    padding-bottom: 700;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .category-box {
+    height: 120;
+    width: 80;
+    margin-left: 20;
+    margin-right: 20;
+    margin-top: 50;
+    margin-bottom: 50;
+    justify-content: center;
+    align-items: center;
+  }
+  .category-icon-box {
+    width: 80;
+    height: 80;
+    border-radius: 80;
+    background-color: #982735;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10;
+  }
+  .category-icon-img {
+    width: 50;
+    height: 50;
+  }
+  .category-box-text {
+    color: #ddd;
   }
 </style>
 
 <script>
+  var getCategoryCN = require('./lib/getCategoryCN.js').getCategoryCN;
+  var categories = require('./lib/getCategoryCN.js').categories;
   var animation = require('@weex-module/animation');
   var store = require('./vuex/store.js');
   module.exports = {
@@ -27,7 +187,27 @@
       return {
         deviceHeight: 0,
         deviceWidth: 0,
-        baseUrl: ''
+        baseUrl: '',
+        boxSelected: 'income',
+        categories: categories,
+        state: store.state
+      }
+    },
+    computed: {
+      categorySelected: {
+        get: function() {
+          return store.state.categorySelected;
+        }
+      },
+      categorySelectedCN: {
+        get: function() {
+          return getCategoryCN(this.categorySelected);
+        }
+      },
+      inputAmount: {
+        get: function() {
+          return store.state.inputAmount.toFixed(2);
+        }
       }
     },
     methods: {
@@ -49,17 +229,26 @@
         animation.transition(pageElem, {
           styles: {
             // transform: 'translate(0, ' + this.deviceHeight + 'px)'
-            transform: 'translate(0, ' + this.deviceHeight + 'px)'
+            transform: 'translate(0, 0)'
           },
           duration: 200,
           timingFunction: 'linear',
         }, function() {
           // console.log('animation finished')
         });
+      },
+      incomeClicked: function() {
+        this.boxSelected = 'income';
+      },
+      spendingClicked: function() {
+        this.boxSelected = 'spending';
+      },
+      clickCategoryBox: function() {
+        
       }
     },
     created: function() {
-      this.bundleUrl = store.state.bundleUrl;
+      this.baseUrl = store.state.baseUrl;
     }
   }
 </script>

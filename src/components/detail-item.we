@@ -94,7 +94,7 @@
 
 <script>
   var store = require('../vuex/store.js');
-  var getCategoryCN = require('../lib/getCategoryCN.js');
+  var getCategoryCN = require('../lib/getCategoryCN.js').getCategoryCN;
   var animation = require('@weex-module/animation');
   module.exports = {
     data: function() {

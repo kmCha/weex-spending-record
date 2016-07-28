@@ -88,7 +88,9 @@ var state = {
   detailIndex: -1,
   detail: {},
   displayedMonthIndex: 0,
-  baseUrl: ''
+  baseUrl: '',
+  categorySelected: 'yiban',
+  inputAmount: 0
 };
 
 var mutations = {
@@ -122,8 +124,6 @@ var mutations = {
     }
   },
   changeDisplay: function(state, index) {
-    // state.displayedMonthIndex.push(index);
-    // state.displayedMonthIndex.shift();
     state.displayedMonthIndex = index;
   },
   setBaseUrl: function(state, url) {
@@ -147,6 +147,9 @@ var actions = {
 var getters = {
   year: function(store) {
     return store.state.detail.months[store.state.displayedMonthIndex].year;
+  },
+  months: function(store) {
+    return store.state.detail.months;
   }
 };
 
