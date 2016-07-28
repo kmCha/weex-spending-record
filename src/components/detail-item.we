@@ -93,7 +93,7 @@
 </style>
 
 <script>
-  var store = require('../vuex/store.js');
+  // var this.store = require('../vuex/this.store.js');
   var getCategoryCN = require('../lib/getCategoryCN.js').getCategoryCN;
   var animation = require('@weex-module/animation');
   module.exports = {
@@ -105,7 +105,7 @@
         monthIndex: 0,
         optionsShow: false,
         baseUrl: '',
-        state: store.state
+        // state: this.store.state
       }
     },
     methods: {
@@ -119,7 +119,7 @@
       deleteItem: function() {
         // console.log('delete')
         // this.$dispatch('deleteItem', {index: this.detailIndex});
-        store.dispatch('delete', {
+        this.store.dispatch('delete', {
           monthIndex: this.monthIndex,
           dateIndex: this.dateIndex,
           detailIndex: this.detailIndex
@@ -137,11 +137,11 @@
         this.$dispatch('editItem-index', {index: this.detailIndex});
       },
       clickDayBox: function() {
-        var monthIndex = store.state.monthIndex;
-        var dateIndex = store.state.dateIndex;
-        var detailIndex = store.state.detailIndex;
+        var monthIndex = this.store.state.monthIndex;
+        var dateIndex = this.store.state.dateIndex;
+        var detailIndex = this.store.state.detailIndex;
         if (monthIndex < 0 || dateIndex < 0 || detailIndex < 0) { // 无option已打开
-          store.commit('select', {
+          this.store.commit('select', {
             monthIndex: this.monthIndex,
             dateIndex: this.dateIndex,
             detailIndex: this.detailIndex
@@ -149,7 +149,7 @@
           this.openOptions();
         } else if (monthIndex === this.monthIndex && dateIndex === this.dateIndex && detailIndex === this.detailIndex) {  // 本option已打开
           this.closeOptions();
-          store.commit('unselect');
+          this.store.commit('unselect');
         } else {              // 其他option已打开
           this.$dispatch('closeOptions');
         }
@@ -205,13 +205,13 @@
         }, function() {
           self.optionsShow = false;
         });
-        store.commit('unselect');
+        this.store.commit('unselect');
       }
     },
     computed: {
       // detail: {
       //   get: function() {
-      //     return store.state.detail.months[this.monthIndex].dates[this.dateIndex].details[this.detailIndex];
+      //     return this.store.state.detail.months[this.monthIndex].dates[this.dateIndex].details[this.detailIndex];
       //   }
       // },
       category: function() {
@@ -228,7 +228,7 @@
       }
     },
     created: function() {
-      this.baseUrl = store.state.baseUrl;
+      this.baseUrl = this.store.state.baseUrl;
     }
   }
 </script>

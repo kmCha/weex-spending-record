@@ -15,19 +15,19 @@
 <script>
   require('./components/detail-month.we');
   require('weex-components');
-  var store = require('./vuex/store.js');
+  // var store = require('./vuex/store.js');
   var stream = require('@weex-module/stream');
   module.exports = {
     data: function () {
       return {
         // detail: {}
-        state: store.state
+        // state: this.store.state
       }
     },
     computed: {
       months: {
         get: function() {
-          return store.state.detail.months;
+          return this.store.state.detail.months;
         }
       }
     },
@@ -41,12 +41,12 @@
         })
       },
       closeOptions: function() {
-        if (store.state.monthIndex < 0 || store.state.dateIndex < 0 || store.state.detailIndex < 0) {
+        if (this.store.state.monthIndex < 0 || this.store.state.dateIndex < 0 || this.store.state.detailIndex < 0) {
           return;
         }
-        var monthIndex = store.state.monthIndex;
-        var dateIndex = store.state.dateIndex;
-        var detailIndex = store.state.detailIndex;
+        var monthIndex = this.store.state.monthIndex;
+        var dateIndex = this.store.state.dateIndex;
+        var detailIndex = this.store.state.detailIndex;
         var monthElement = this.$('month-' + monthIndex);
         var dateElement = monthElement.$('date-' + dateIndex);
         var detailElement = dateElement.$('detail-' + detailIndex);

@@ -35,7 +35,7 @@
 </style>
 
 <script>
-  var store = require('../vuex/store.js');
+  // var this.store = require('../vuex/this.store.js');
   module.exports = {
     data: function() {
       return {
@@ -48,7 +48,7 @@
       }
     },
     created: function() {
-      this.baseUrl = store.state.baseUrl;
+      this.baseUrl = this.store.state.baseUrl;
     }
   }
 </script>

@@ -145,11 +145,11 @@ var actions = {
 }
 
 var getters = {
-  year: function(store) {
-    return store.state.detail.months[store.state.displayedMonthIndex].year;
+  year: function(state) {
+    return state.detail.months[store.state.displayedMonthIndex].year;
   },
-  months: function(store) {
-    return store.state.detail.months;
+  months: function(state) {
+    return state.detail.months;
   }
 };
 

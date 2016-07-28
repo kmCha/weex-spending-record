@@ -61,11 +61,11 @@
 </style>
 
 <script>
-  var store = require('../vuex/store.js');
+  // var this.store = require('../vuex/this.store.js');
   module.exports = {
     data: function() {
       return {
-        state: store.state
+        // state: this.store.state
       }
     },
     methods: {
@@ -76,23 +76,23 @@
     computed: {
       displayIndex: {
         get: function() {
-          return store.state.displayedMonthIndex;
+          return this.store.state.displayedMonthIndex;
         }
       },
       year: function () {
         // console.log('year')
         var index = this.displayIndex;
-        return store.state.detail.months[index].year;
+        return this.store.state.detail.months[index].year;
       },
       month: function() {
         var index = this.displayIndex;
-        return store.state.detail.months[index].month;
+        return this.store.state.detail.months[index].month;
       },
       income: function() {
         // console.log('income')
         var income = 0;
         var index = this.displayIndex;
-        var month = store.state.detail.months[index];
+        var month = this.store.state.detail.months[index];
         var datesArr = month.dates;
         var detailsArr;
         datesArr.forEach(function(day) {
@@ -108,7 +108,7 @@
       spending: function() {
         var spending = 0;
         var index = this.displayIndex;
-        var month = store.state.detail.months[index];
+        var month = this.store.state.detail.months[index];
         var datesArr = month.dates;
         var detailsArr;
         datesArr.forEach(function(day) {
