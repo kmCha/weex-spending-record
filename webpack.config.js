@@ -1,5 +1,6 @@
 require('webpack')
 require('weex-loader')
+require('weex-vuex-loader')
 
 var path = require('path')
 
@@ -15,7 +16,7 @@ module.exports = {
     loaders: [
       {
         test: /\.we(\?[^?]+)?$/,
-        loaders: ['weex-loader']
+        loaders: ['weex-loader','weex-vuex-loader']
       }
     ]
   }
