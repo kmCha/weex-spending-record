@@ -20,15 +20,8 @@
   module.exports = {
     data: function () {
       return {
-        // detail: {}
+        months: []
         // state: this.store.state
-      }
-    },
-    computed: {
-      months: {
-        get: function() {
-          return this.store.state.detail.months;
-        }
       }
     },
     methods: {
@@ -57,6 +50,7 @@
       // this.$on('deleteMonth', function(e) {
       //   this.items.splice(e.detail.index, 1);
       // });
+      // console.log(this.store.getters.months);
       this.$on('closeOptions', function() {
         this.closeOptions();
       })

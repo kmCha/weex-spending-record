@@ -189,8 +189,7 @@
         deviceWidth: 0,
         baseUrl: '',
         boxSelected: 'income',
-        categories: categories,
-        // state: store.state
+        categories: categories
       }
     },
     computed: {

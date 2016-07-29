@@ -86,7 +86,7 @@ var state = {
   monthIndex: -1,
   dateIndex: -1,
   detailIndex: -1,
-  detail: {},
+  detail: {months: []},
   displayedMonthIndex: 0,
   baseUrl: '',
   categorySelected: 'yiban',
@@ -104,8 +104,11 @@ var mutations = {
     state.dateIndex = -1;
     state.detailIndex = -1;
   },
-  setItems: function(state, items) {
-    state.detail = items;
+  setDetail: function(state, detail) {
+    // console.log('setItems been called')
+    state.detail = detail;
+    // state.detail.months.pop()
+    // console.log('after commit')
     // state.items = detail;
   },
   delete: function(state, index) {
@@ -132,11 +135,19 @@ var mutations = {
 }
 
 var actions = {
-  getInitialData: function(store) {
-    var commit = store.commit;
-    // ajax
-    commit('setItems', detail);
-  },
+  // getInitialData: function(store) {
+    // return new Promise(function(resolve, reject) {
+      // console.log('before resolve')
+      // resolve();
+      // console.log('after resolve')
+    // }).then(function() {
+      // console.log('first then before commit', store.state.detail);
+      // var commit = store.commit;
+      // ajax
+      // commit('setItems', detail);
+    //   console.log('first then after commit', store.state.detail);
+    // });
+  // },
   delete: function(store, index) {
     var commit = store.commit;
     commit('unselect');
@@ -145,11 +156,12 @@ var actions = {
 }
 
 var getters = {
-  year: function(state) {
-    return state.detail.months[store.state.displayedMonthIndex].year;
+  year: function(store) {
+    return store.state.detail.months[store.state.displayedMonthIndex].year;
   },
-  months: function(state) {
-    return state.detail.months;
+  months: function(store) {
+    console.log('get months', store)
+    return store.state.detail.months;
   }
 };
 

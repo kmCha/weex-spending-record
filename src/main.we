@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <scroller style="width: {{deviceWidth}}; height: {{deviceHeight}}; padding-top: {{headerHeight}}; padding-bottom: {{footerHeight + 40}};">
-      <detail-page></detail-page>
+      <detail-page months="{{detail.months}}"></detail-page>
     </scroller>
     <header></header>
     <footer></footer>
@@ -16,6 +16,7 @@
 </style>
 
 <script>
+  var stream = require('@weex-module/stream');
   require('./components/footer.we');
   require('./components/header.we');
   // var store = require('./vuex/store.js');
@@ -27,11 +28,32 @@
       headerHeight: 150,
       footerHeight: 100
     },
+    computed: {
+      detail: {
+        get: function() {
+          return this.store.state.detail;
+        }
+      }
+    },
     created: function() {
-      this.store.dispatch('getInitialData');
+      var self = this;
       var slashIndex = this.$getConfig().bundleUrl.indexOf('/', 7);
       var baseUrl = this.$getConfig().bundleUrl.slice(0, slashIndex + 1);
       this.store.commit('setBaseUrl', baseUrl);
+      stream.fetch({
+        method: 'GET',
+        url: this.store.state.baseUrl + 'data/details.json',
+        type:'json'
+      }, function(response) {
+        //process response
+        // console.log(response.data);
+        self.store.commit('setDetail', response.data);
+      },function(response){
+        // console.log("bytes received:"+response.length);
+      });
+      // .then(function() {
+      //   console.log('get init data done')
+      // });
       // modal.toast({'message': baseUrl})
       // store.commit('setItems');
       this.$on('addDetail', function(e) {
