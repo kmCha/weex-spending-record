@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <scroller style="width: {{deviceWidth}}; height: {{deviceHeight}}; padding-top: {{headerHeight}}; padding-bottom: {{footerHeight + 40}};">
-      <detail-page months="{{detail.months}}"></detail-page>
+      <detail-page></detail-page>
     </scroller>
     <header></header>
     <footer></footer>
@@ -20,7 +20,7 @@
   require('./components/footer.we');
   require('./components/header.we');
   // var store = require('./vuex/store.js');
-  // var modal = require('@weex-module/modal');
+  var modal = require('@weex-module/modal');
   module.exports = {
     data: {
       deviceWidth: 750,
@@ -28,13 +28,12 @@
       headerHeight: 150,
       footerHeight: 100
     },
-    computed: {
-      detail: {
-        get: function() {
-          return this.store.state.detail;
-        }
-      }
-    },
+    // computed: {
+    //   detail: function() {
+    //       // console.log(this.store.state.detail)
+    //       return this.store.state.detail;
+    //   }
+    // },
     created: function() {
       var self = this;
       var slashIndex = this.$getConfig().bundleUrl.indexOf('/', 7);
@@ -42,11 +41,14 @@
       this.store.commit('setBaseUrl', baseUrl);
       stream.fetch({
         method: 'GET',
-        url: this.store.state.baseUrl + 'data/details.json',
+        url: baseUrl + 'data/details.json',
         type:'json'
       }, function(response) {
         //process response
-        // console.log(response.data);
+        if (typeof response === 'string') {
+          response = JSON.parse(response);
+          response.data = JSON.parse(response.data);
+        }
         self.store.commit('setDetail', response.data);
       },function(response){
         // console.log("bytes received:"+response.length);

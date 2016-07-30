@@ -15,13 +15,21 @@
 <script>
   require('./components/detail-month.we');
   require('weex-components');
+  var modal = require('@weex-module/modal');
   // var store = require('./vuex/store.js');
   var stream = require('@weex-module/stream');
   module.exports = {
     data: function () {
       return {
-        months: []
+        // months: []
         // state: this.store.state
+      }
+    },
+    computed: {
+      months: function() {
+          // console.log('compute months:', this.store.state)
+          // modal.toast({'message': JSON.stringify(this.store.state)});
+          return this.store.state.detail.months;
       }
     },
     methods: {
