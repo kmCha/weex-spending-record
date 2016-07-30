@@ -15,20 +15,21 @@
 <script>
   require('./components/detail-month.we');
   require('weex-components');
-  var store = require('./vuex/store.js');
+  var modal = require('@weex-module/modal');
+  // var store = require('./vuex/store.js');
   var stream = require('@weex-module/stream');
   module.exports = {
     data: function () {
       return {
-        // detail: {}
-        state: store.state
+        // months: []
+        // state: this.store.state
       }
     },
     computed: {
-      months: {
-        get: function() {
-          return store.state.detail.months;
-        }
+      months: function() {
+          // console.log('compute months:', this.store.state)
+          // modal.toast({'message': JSON.stringify(this.store.state)});
+          return this.store.state.detail.months;
       }
     },
     methods: {
@@ -41,12 +42,12 @@
         })
       },
       closeOptions: function() {
-        if (store.state.monthIndex < 0 || store.state.dateIndex < 0 || store.state.detailIndex < 0) {
+        if (this.store.state.monthIndex < 0 || this.store.state.dateIndex < 0 || this.store.state.detailIndex < 0) {
           return;
         }
-        var monthIndex = store.state.monthIndex;
-        var dateIndex = store.state.dateIndex;
-        var detailIndex = store.state.detailIndex;
+        var monthIndex = this.store.state.monthIndex;
+        var dateIndex = this.store.state.dateIndex;
+        var detailIndex = this.store.state.detailIndex;
         var monthElement = this.$('month-' + monthIndex);
         var dateElement = monthElement.$('date-' + dateIndex);
         var detailElement = dateElement.$('detail-' + detailIndex);
@@ -57,6 +58,7 @@
       // this.$on('deleteMonth', function(e) {
       //   this.items.splice(e.detail.index, 1);
       // });
+      // console.log(this.store.getters.months);
       this.$on('closeOptions', function() {
         this.closeOptions();
       })

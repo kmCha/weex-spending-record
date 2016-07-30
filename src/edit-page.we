@@ -181,7 +181,7 @@
   var getCategoryCN = require('./lib/getCategoryCN.js').getCategoryCN;
   var categories = require('./lib/getCategoryCN.js').categories;
   var animation = require('@weex-module/animation');
-  var store = require('./vuex/store.js');
+  // var store = require('./vuex/store.js');
   module.exports = {
     data: function() {
       return {
@@ -189,14 +189,13 @@
         deviceWidth: 0,
         baseUrl: '',
         boxSelected: 'income',
-        categories: categories,
-        state: store.state
+        categories: categories
       }
     },
     computed: {
       categorySelected: {
         get: function() {
-          return store.state.categorySelected;
+          return this.store.state.categorySelected;
         }
       },
       categorySelectedCN: {
@@ -206,7 +205,7 @@
       },
       inputAmount: {
         get: function() {
-          return store.state.inputAmount.toFixed(2);
+          return this.store.state.inputAmount.toFixed(2);
         }
       }
     },
@@ -244,11 +243,11 @@
         this.boxSelected = 'spending';
       },
       clickCategoryBox: function() {
-        
+
       }
     },
     created: function() {
-      this.baseUrl = store.state.baseUrl;
+      this.baseUrl = this.store.state.baseUrl;
     }
   }
 </script>

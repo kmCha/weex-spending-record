@@ -16,10 +16,11 @@
 </style>
 
 <script>
+  var stream = require('@weex-module/stream');
   require('./components/footer.we');
   require('./components/header.we');
-  var store = require('./vuex/store.js');
-  // var modal = require('@weex-module/modal');
+  // var store = require('./vuex/store.js');
+  var modal = require('@weex-module/modal');
   module.exports = {
     data: {
       deviceWidth: 750,
@@ -27,11 +28,34 @@
       headerHeight: 150,
       footerHeight: 100
     },
+    // computed: {
+    //   detail: function() {
+    //       // console.log(this.store.state.detail)
+    //       return this.store.state.detail;
+    //   }
+    // },
     created: function() {
-      store.dispatch('getInitialData');
+      var self = this;
       var slashIndex = this.$getConfig().bundleUrl.indexOf('/', 7);
       var baseUrl = this.$getConfig().bundleUrl.slice(0, slashIndex + 1);
-      store.commit('setBaseUrl', baseUrl);
+      this.store.commit('setBaseUrl', baseUrl);
+      stream.fetch({
+        method: 'GET',
+        url: baseUrl + 'data/details.json',
+        type:'json'
+      }, function(response) {
+        //process response
+        if (typeof response === 'string') {
+          response = JSON.parse(response);
+          response.data = JSON.parse(response.data);
+        }
+        self.store.commit('setDetail', response.data);
+      },function(response){
+        // console.log("bytes received:"+response.length);
+      });
+      // .then(function() {
+      //   console.log('get init data done')
+      // });
       // modal.toast({'message': baseUrl})
       // store.commit('setItems');
       this.$on('addDetail', function(e) {

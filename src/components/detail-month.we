@@ -40,7 +40,7 @@
   }
 </style>
 <script>
-  var store = require('../vuex/store.js');
+  // var this.store = require('../vuex/this.store.js');
   module.exports = {
     data: function() {
       return {
@@ -51,13 +51,13 @@
     methods: {
       handleDis: function(e) {
         if (e.direction === 'up') {
-          store.commit('changeDisplay', this.monthIndex);
+          this.store.commit('changeDisplay', this.monthIndex);
         }
       },
       handleAppear: function(e) {
         if (e.direction === 'down') {
           if (this.monthIndex > 0) {
-            store.commit('changeDisplay', this.monthIndex - 1);
+            this.store.commit('changeDisplay', this.monthIndex - 1);
           }
         }
       }

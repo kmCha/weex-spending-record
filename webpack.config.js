@@ -16,7 +16,7 @@ module.exports = {
     loaders: [
       {
         test: /\.we(\?[^?]+)?$/,
-        loaders: ['weex-loader','weex-vuex-loader']
+        loaders: ['weex-loader', 'weex-vuex-loader?store']
       }
     ]
   }
