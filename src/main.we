@@ -53,6 +53,19 @@
       },function(response){
         // console.log("bytes received:"+response.length);
       });
+      stream.fetch({
+        method: 'GET',
+        url: baseUrl + 'data/categories.json',
+        type:'json'
+      }, function(response) {
+        //process response
+        if (typeof response === 'string') {
+          response = JSON.parse(response);
+        }
+        self.store.commit('setCategories', response.data);
+      },function(response){
+        // console.log("bytes received:"+response.length);
+      });
       // .then(function() {
       //   console.log('get init data done')
       // });

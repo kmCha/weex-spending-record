@@ -1,5 +1,17 @@
-{
-  "taobao": "淘宝",
-  "jiangjin": "奖金",
-  "yiban": "一般"
-}
+[
+  {
+    "name":"taobao",
+    "nameCN":"淘宝",
+    "bgColor":"#ff4200"
+  },
+  {
+    "name":"jiangjin",
+    "nameCN":"奖金",
+    "bgColor":"#00deff"
+  },
+  {
+    "name":"yiban",
+    "nameCN":"一般",
+    "bgColor":"#ffc000"
+  }
+]

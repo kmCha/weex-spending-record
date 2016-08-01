@@ -29,7 +29,8 @@
       months: function() {
           // console.log('compute months:', this.store.state)
           // modal.toast({'message': JSON.stringify(this.store.state)});
-          return this.store.state.detail.months;
+          // return this.store.state.detail.months;
+          return this.store.getters.months;
       }
     },
     methods: {

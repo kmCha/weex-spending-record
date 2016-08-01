@@ -1,0 +1,56 @@
+<template>
+  <div class="category-box" onclick="clickCategoryBox">
+    <div class="category-icon-box" style="background-color: {{category.bgColor}};">
+      <img class="category-icon-img" src="{{baseUrl}}img/{{category.name}}.png"></img>
+    </div>
+    <text class="category-box-text">{{category.nameCN}}</text>
+  </div>
+</template>
+
+<style>
+.category-box {
+  height: 120;
+  width: 80;
+  margin-left: 20;
+  margin-right: 20;
+  margin-top: 50;
+  margin-bottom: 50;
+  justify-content: center;
+  align-items: center;
+}
+.category-icon-box {
+  width: 80;
+  height: 80;
+  border-radius: 80;
+  /*background-color: #982735;*/
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10;
+}
+.category-icon-img {
+  width: 50;
+  height: 50;
+}
+.category-box-text {
+  color: #ddd;
+}
+</style>
+
+<script>
+  module.exports = {
+    data: function() {
+      return {
+        category: {},
+        index: 0
+      }
+    },
+    methods: {
+      clickCategoryBox: function() {
+        this.store.commit('selectCategory', this.category.name);
+      }
+    },
+    created: function() {
+      this.baseUrl = this.store.state.baseUrl;
+    }
+  }
+</script>

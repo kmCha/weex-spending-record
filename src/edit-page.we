@@ -24,12 +24,7 @@
     </div>
     <scroller class="categories-scroller">
       <div class="categories-wrapper">
-        <div class="category-box" repeat="category in categories" onclick="clickCategoryBox">
-          <div class="category-icon-box">
-            <img class="category-icon-img" src="{{baseUrl}}img/{{category.name}}.png"></img>
-          </div>
-          <text class="category-box-text">{{category.nameCN}}</text>
-        </div>
+        <category-box repeat="category in categories" category="{{category}}" index="{{$index}}"></category-box>
       </div>
     </scroller>
   </div>
@@ -149,47 +144,22 @@
     justify-content: space-around;
     align-items: center;
   }
-  .category-box {
-    height: 120;
-    width: 80;
-    margin-left: 20;
-    margin-right: 20;
-    margin-top: 50;
-    margin-bottom: 50;
-    justify-content: center;
-    align-items: center;
-  }
-  .category-icon-box {
-    width: 80;
-    height: 80;
-    border-radius: 80;
-    background-color: #982735;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10;
-  }
-  .category-icon-img {
-    width: 50;
-    height: 50;
-  }
-  .category-box-text {
-    color: #ddd;
-  }
 </style>
 
 <script>
-  var getCategoryCN = require('./lib/getCategoryCN.js').getCategoryCN;
-  var categories = require('./lib/getCategoryCN.js').categories;
+  var stream = require('@weex-module/stream');
+  var getCategoryCN = require('./lib/getCategoryProperties.js').getCategoryCN;
+  // var categories = require('./lib/getCategoryProperties.js').categories;
   var animation = require('@weex-module/animation');
   // var store = require('./vuex/store.js');
+  require('./components/category-box.we');
   module.exports = {
     data: function() {
       return {
         deviceHeight: 0,
         deviceWidth: 0,
         baseUrl: '',
-        boxSelected: 'income',
-        categories: categories
+        boxSelected: 'income'
       }
     },
     computed: {
@@ -200,12 +170,17 @@
       },
       categorySelectedCN: {
         get: function() {
-          return getCategoryCN(this.categorySelected);
+          return getCategoryCN(this.store.state.categories, this.categorySelected);
         }
       },
       inputAmount: {
         get: function() {
           return this.store.state.inputAmount.toFixed(2);
+        }
+      },
+      categories: {
+        get: function() {
+          return this.store.state.categories;
         }
       }
     },
@@ -241,9 +216,6 @@
       },
       spendingClicked: function() {
         this.boxSelected = 'spending';
-      },
-      clickCategoryBox: function() {
-
       }
     },
     created: function() {
