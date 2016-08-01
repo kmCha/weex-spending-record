@@ -8,7 +8,10 @@ var state = {
   baseUrl: '',
   categorySelected: 'yiban',
   inputAmount: 0,
-  categories: []
+  categories: {
+    spending: [],
+    income: []
+  }
 };
 
 var mutations = {

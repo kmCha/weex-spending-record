@@ -172,12 +172,12 @@
       },
       categorySelectedCN: {
         get: function() {
-          return getCategoryCN(this.store.state.categories, this.categorySelected);
+          return getCategoryCN(this.store.state.categories, this.categorySelected, this.boxSelected);
         }
       },
       categorySelectedColor: {
         get: function() {
-          return getCategoryColor(this.store.state.categories, this.categorySelected);
+          return getCategoryColor(this.store.state.categories, this.categorySelected, this.boxSelected);
         }
       },
       inputAmount: {
@@ -187,7 +187,7 @@
       },
       categories: {
         get: function() {
-          return this.store.state.categories;
+          return this.store.state.categories.spending;
         }
       }
     },

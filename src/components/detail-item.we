@@ -208,10 +208,10 @@
       //   }
       // },
       category: function() {
-        return getCategoryCN(this.store.state.categories, this.detail.category);
+        return getCategoryCN(this.store.state.categories, this.detail.category, this.detail.income ? 'income' : 'spending');
       },
       categoryColor: function() {
-        return getCategoryColor(this.store.state.categories, this.detail.category);
+        return getCategoryColor(this.store.state.categories, this.detail.category, this.detail.income ? 'income' : 'spending');
       },
       position: function() {
         return this.detail.income ? 'left' : 'right';

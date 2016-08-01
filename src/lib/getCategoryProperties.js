@@ -1,18 +1,18 @@
-function getCategoryCN(categories, categoryEN) {
+function getCategoryCN(categories, categoryEN, type) {
   var categoryCN = '';
-  for(var i = 0; i < categories.length; i++) {
-    if (categories[i].name === categoryEN) {
-      categoryCN = categories[i].nameCN;
+  for(var i = 0; i < categories[type].length; i++) {
+    if (categories[type][i].name === categoryEN) {
+      categoryCN = categories[type][i].nameCN;
       break;
     }
   }
   return categoryCN;
 }
-function getCategoryColor(categories, categoryEN) {
+function getCategoryColor(categories, categoryEN, type) {
   var color = '';
-  for(var i = 0; i < categories.length; i++) {
-    if (categories[i].name === categoryEN) {
-      color = categories[i].bgColor;
+  for(var i = 0; i < categories[type].length; i++) {
+    if (categories[type][i].name === categoryEN) {
+      color = categories[type][i].bgColor;
       break;
     }
   }

@@ -1,32 +1,36 @@
-[
-  {
-    "name":"taobao",
-    "nameCN":"淘宝",
-    "bgColor":"#dd3900"
-  },
-  {
-    "name":"jiangjin",
-    "nameCN":"奖金",
-    "bgColor":"#0096d5"
-  },
-  {
-    "name":"yiban",
-    "nameCN":"一般",
-    "bgColor":"#d5cd00"
-  },
-  {
-    "name":"chaoshi",
-    "nameCN":"超市",
-    "bgColor":"#d59600"
-  },
-  {
-    "name":"shoujitongxun",
-    "nameCN":"手机通讯",
-    "bgColor":"#cf3fcd"
-  },
-  {
-    "name":"fangzu",
-    "nameCN":"房租",
-    "bgColor":"#cf3f6b"
-  }
-]
+{
+  "spending": [
+    {
+      "name":"taobao",
+      "nameCN":"淘宝",
+      "bgColor":"#dd3900"
+    },
+    {
+      "name":"yiban",
+      "nameCN":"一般",
+      "bgColor":"#d5cd00"
+    },
+    {
+      "name":"chaoshi",
+      "nameCN":"超市",
+      "bgColor":"#d59600"
+    },
+    {
+      "name":"shoujitongxun",
+      "nameCN":"手机通讯",
+      "bgColor":"#cf3fcd"
+    },
+    {
+      "name":"fangzu",
+      "nameCN":"房租",
+      "bgColor":"#cf3f6b"
+    }
+  ],
+  "income": [
+    {
+      "name":"jiangjin",
+      "nameCN":"奖金",
+      "bgColor":"#0096d5"
+    }
+  ]
+}
