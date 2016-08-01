@@ -73,11 +73,10 @@
       // modal.toast({'message': baseUrl})
       // store.commit('setItems');
       this.$on('addDetail', function(e) {
-        console.log(e.type);
         this.$vm('editPage').openPage();
       });
-      this.$on('editItem-detail', function(e) {
-        // console.log(e.type, e);
+      this.$on('editItem', function(e) {
+        this.$vm('editPage').openPage();
       });
       this.deviceHeight = this.$getConfig().env.deviceHeight;
       this.deviceWidth = this.$getConfig().env.deviceWidth;

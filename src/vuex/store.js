@@ -8,6 +8,7 @@ var state = {
   baseUrl: '',
   categorySelected: 'taobao',
   inputAmount: 0,
+  selectedType: 'spending',
   categories: {
     spending: [],
     income: []
@@ -91,6 +92,9 @@ var mutations = {
         }]
       });
     }
+  },
+  setSelectedType: function(state, type) {
+    state.selectedType = type;
   }
 }
 

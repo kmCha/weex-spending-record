@@ -69,15 +69,15 @@
       //     this.$dispatch('deleteMonth', {index: this.monthIndex});
       //   }
       // });
-      this.$on('editItem-day', function(e) {
-        this.$dispatch('editItem-detail', {
-          id: this.month._id,
-          year: this.month.year,
-          month: this.month.month,
-          date: e.detail.date,
-          detail: e.detail.detail
-        })
-      })
+      // this.$on('editItem-day', function(e) {
+      //   this.$dispatch('editItem-detail', {
+      //     id: this.month._id,
+      //     year: this.month.year,
+      //     month: this.month.month,
+      //     date: e.detail.date,
+      //     detail: e.detail.detail
+      //   })
+      // })
     }
   }
 </script>

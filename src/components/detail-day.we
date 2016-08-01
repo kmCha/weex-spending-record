@@ -112,12 +112,12 @@
       //     this.$dispatch('deleteDay', {index: this.dateIndex});
       //   }
       // });
-      this.$on('editItem-index', function(e) {
-        this.$dispatch('editItem-day', {
-          date: this.day.date,
-          detail: this.day.details[e.detail.index]
-        })
-      })
+      // this.$on('editItem-index', function(e) {
+      //   this.$dispatch('editItem-day', {
+      //     date: this.day.date,
+      //     detail: this.day.details[e.detail.index]
+      //   })
+      // })
     }
   }
 </script>

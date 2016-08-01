@@ -5,10 +5,10 @@
     </div>
     <div class="alter-box">
       <div class="income-box" onclick="incomeClicked">
-        <text class="income-box-text income-{{boxSelected}}">收入</text>
+        <text class="income-box-text income-{{selectedType}}">收入</text>
       </div>
       <div class="spending-box" onclick="spendingClicked">
-        <text class="spending-box-text spending-{{boxSelected}}">支出</text>
+        <text class="spending-box-text spending-{{selectedType}}">支出</text>
       </div>
     </div>
     <div class="input-box">
@@ -210,14 +210,19 @@
           return this.store.state.categorySelected;
         }
       },
+      selectedType: {
+        get: function() {
+          return this.store.state.selectedType;
+        }
+      },
       categorySelectedCN: {
         get: function() {
-          return getCategoryCN(this.store.state.categories, this.categorySelected, this.boxSelected);
+          return getCategoryCN(this.store.state.categories, this.categorySelected, this.selectedType);
         }
       },
       categorySelectedColor: {
         get: function() {
-          return getCategoryColor(this.store.state.categories, this.categorySelected, this.boxSelected);
+          return getCategoryColor(this.store.state.categories, this.categorySelected, this.selectedType);
         }
       },
       inputAmount: {
@@ -227,7 +232,7 @@
       },
       categories: {
         get: function() {
-          return this.store.state.categories[this.boxSelected];
+          return this.store.state.categories[this.selectedType];
         }
       },
       showAmount: {
@@ -264,11 +269,13 @@
         });
       },
       incomeClicked: function() {
-        this.boxSelected = 'income';
+        // this.boxSelected = 'income';
+        this.store.commit('setSelectedType', 'income');
         this.store.commit('selectCategory', 'jiangjin');
       },
       spendingClicked: function() {
-        this.boxSelected = 'spending';
+        // this.boxSelected = 'spending';
+        this.store.commit('setSelectedType', 'spending');
         this.store.commit('selectCategory', 'taobao');
       },
       onAmountChange: function(e) {
@@ -281,8 +288,9 @@
         var year = (new Date()).getFullYear() + '';
         var month = ((new Date()).getMonth() + 1 + '').length === 1 ? '0' + ((new Date()).getMonth() + 1) : (new Date()).getMonth() + 1;
         var date = ((new Date()).getDate() + '').length === 1 ? '0' + (new Date()).getDate() : (new Date()).getDate();
-        detail.income = this.boxSelected === 'income';
-        this.boxSelected = 'spending';
+        detail.income = this.selectedType === 'income';
+        // this.boxSelected = 'spending';
+        this.store.commit('setSelectedType', 'spending');
         detail.amount = Number(this.inputAmount);
         this.store.commit('setAmount', 0);
         detail.desc = '';
@@ -307,7 +315,7 @@
         this.closePage();
         this.store.commit('setAmount', 0);
         this.store.commit('selectCategory', 'taobao');
-        this.boxSelected = 'spending';
+        this.store.commit('setSelectedType', 'spending');
       }
     },
     created: function() {

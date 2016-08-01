@@ -127,7 +127,10 @@
       },
       editItem: function() {
         console.log('edit')
-        this.$dispatch('editItem-index', {index: this.detailIndex});
+        this.store.commit('setSelectedType', this.detail.income ? 'income' : 'spending');
+        this.store.commit('selectCategory', this.detail.category);
+        this.store.commit('setAmount', this.detail.amount);
+        this.$dispatch('editItem');
       },
       clickDayBox: function() {
         var monthIndex = this.store.state.monthIndex;
