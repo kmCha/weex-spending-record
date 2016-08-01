@@ -1,6 +1,6 @@
 <template>
   <div id="page" class="edit-page-box" style="width: {{deviceWidth}}; height: {{deviceHeight}}; top: {{deviceHeight}};">
-    <div class="close-box" onclick="closePage">
+    <div class="close-box" onclick="onCloseClick">
       <img src="{{baseUrl}}img/delete.png" style="width: 60; height: 60;"></img>
     </div>
     <div class="alter-box">
@@ -302,6 +302,12 @@
       },
       onAmountBlur: function() {
         this.showInput = false;
+      },
+      onCloseClick: function() {
+        this.closePage();
+        this.store.commit('setAmount', 0);
+        this.store.commit('selectCategory', 'taobao');
+        this.boxSelected = 'spending';
       }
     },
     created: function() {
