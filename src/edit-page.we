@@ -152,7 +152,7 @@
   }
   .categories-scroller {
     width: 750;
-    height: 970;
+    height: 770;
     /*background-color: #098235;*/
   }
   .categories-wrapper {
