@@ -61,6 +61,36 @@ var mutations = {
   },
   setAmount: function(state, amount) {
     state.inputAmount = amount;
+  },
+  addDetail: function(state, payload) {
+    console.log(payload.detail, payload.year, payload.month, payload.date)
+    var detail = payload.detail;
+    var year = payload.year;
+    var month = payload.month;
+    var date = payload. date;
+    var topMonth = state.detail.months[0];
+    if (topMonth.year === year && topMonth.month === month) {
+      if (topMonth.dates[0].date === date) {
+        topMonth.dates[0].details.unshift(detail);
+        return;
+      } else {
+        topMonth.date.unshift({
+          date: date,
+          details: [detail]
+        });
+        return;
+      }
+    } else {
+      state.detail.months.unshift({
+        _id: Math.random(),
+        year: year,
+        month: month,
+        dates: [{
+          date: date,
+          details: [detail]
+        }]
+      });
+    }
   }
 }
 

@@ -18,10 +18,10 @@
         </div>
         <text class="input-icon-text">{{categorySelectedCN}}</text>
       </div>
-      <div class="input-amount-box">
-        <!-- <text class="input-amount-text">￥{{inputAmount}}</text> -->
+      <div class="input-amount-box" onclick="onAmountClick">
         <text class="input-amount-text">￥</text>
-        <input class="input-amount-input" type="number" value="{{inputAmount}}" oninput="onAmountChange"></input>
+        <text if="showAmount" class="input-amount-text">{{inputAmount}}</text>
+        <input if="showInput" autofocus="true" class="input-amount-input" type="number" value="{{inputAmount}}" oninput="onAmountChange" onblur="onAmountBlur"></input>
       </div>
     </div>
     <scroller class="categories-scroller">
@@ -29,6 +29,11 @@
         <category-box repeat="category in categories" category="{{category}}" index="{{$index}}"></category-box>
       </div>
     </scroller>
+    <div class="confirm-box" onclick="onSubmit">
+      <div class="confirm-box-wrap">
+        <img class="confirm-box-img" src="{{baseUrl}}img/confirm.png"></img>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -133,6 +138,7 @@
   }
   .input-amount-text {
     font-size: 70;
+    font-weight: bold;
     color: #fff;
     margin-top: 10;
   }
@@ -142,11 +148,12 @@
     background-color: transparent;
     border: none;
     color: #fff;
-    font-size: 70;
+    font-size: 75;
   }
   .categories-scroller {
     width: 750;
     height: 970;
+    /*background-color: #098235;*/
   }
   .categories-wrapper {
     width: 750;
@@ -155,6 +162,27 @@
     justify-content: space-around;
     align-items: center;
     flex-flow: wrap;
+  }
+  .confirm-box {
+    width: 750;
+    height: 200;
+    /*background-color: #902385;*/
+    align-items: center;
+    justify-content: center;
+  }
+  .confirm-box-wrap {
+    width: 100;
+    height: 100;
+    border-radius: 100;
+    border-style: solid;
+    border-width: 3;
+    border-color: rgba(200, 200, 200, 0.5);
+    justify-content: center;
+    align-items: center;
+  }
+  .confirm-box-img {
+    height: 70;
+    width: 70;
   }
 </style>
 
@@ -173,7 +201,7 @@
         deviceWidth: 0,
         baseUrl: '',
         boxSelected: 'spending',
-        amount: 0
+        showInput: false
       }
     },
     computed: {
@@ -200,6 +228,11 @@
       categories: {
         get: function() {
           return this.store.state.categories[this.boxSelected];
+        }
+      },
+      showAmount: {
+        get: function() {
+          return !this.showInput;
         }
       }
     },
@@ -239,8 +272,36 @@
         this.store.commit('selectCategory', 'taobao');
       },
       onAmountChange: function(e) {
-        // this.store.commit('setAmount', e.value);
-        this.amount = e.value;
+        this.store.commit('setAmount', Number(e.value));
+        // this.amount = e.value;
+      },
+      onSubmit: function() {
+        this.closePage();
+        var detail = {};
+        var year = (new Date()).getFullYear() + '';
+        var month = ((new Date()).getMonth() + 1 + '').length === 1 ? '0' + ((new Date()).getMonth() + 1) : (new Date()).getMonth() + 1;
+        var date = ((new Date()).getDate() + '').length === 1 ? '0' + (new Date()).getDate() : (new Date()).getDate();
+        detail.income = this.boxSelected === 'income';
+        this.boxSelected = 'spending';
+        detail.amount = Number(this.inputAmount);
+        this.store.commit('setAmount', 0);
+        detail.desc = '';
+        detail.category = this.categorySelected;
+        detail._id = Math.random();
+        this.store.commit('selectCategory', 'taobao');
+        var payload = {
+          detail: detail,
+          year: year,
+          month: month,
+          date: date
+        };
+        this.store.commit('addDetail', payload)
+      },
+      onAmountClick: function() {
+        this.showInput = true;
+      },
+      onAmountBlur: function() {
+        this.showInput = false;
       }
     },
     created: function() {

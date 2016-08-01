@@ -6,7 +6,7 @@
       "month":"07",
       "dates":[
         {
-          "date":"12",
+          "date":"14",
           "details": [
             {"_id":"15346467657", "income":false, "amount":30, "desc": "11111", "category": "taobao"},
             {"_id":"3464575678", "income":true, "amount":20, "desc": "222222222222", "category": "jiangjin"},
@@ -21,7 +21,7 @@
           ]
         },
         {
-          "date":"14",
+          "date":"12",
           "details": [
             {"_id":"132egrtgrtj", "income":false, "amount":15.55, "desc": "", "category": "fangzu"},
             {"_id":"456y56h4rw", "income":true, "amount":15.55, "desc": "", "category": "jiangjin"}
@@ -35,7 +35,7 @@
       "month":"06",
       "dates":[
         {
-          "date":"06",
+          "date":"08",
           "details": [
             {"_id":"34565juruyjrtfg", "income":false, "amount":60, "desc": "", "category": "shoujitongxun"}
           ]
@@ -47,7 +47,7 @@
           ]
         },
         {
-          "date":"08",
+          "date":"06",
           "details": [
             {"_id":"45y76iyjhnfg", "income":false, "amount":88.85, "desc": "", "category": "taobao"}
           ]
@@ -57,10 +57,10 @@
     {
       "_id":"ehr57y547y45y",
       "year":"2016",
-      "month":"08",
+      "month":"05",
       "dates":[
         {
-          "date":"06",
+          "date":"08",
           "details": [
             {"_id":"4547yu56u56", "income":false, "amount":60, "desc": "", "category": "chaoshi"}
           ]
@@ -72,7 +72,7 @@
           ]
         },
         {
-          "date":"08",
+          "date":"06",
           "details": [
             {"_id":"45y76345345iyjhnfg", "income":false, "amount":88.85, "desc": "", "category": "fangzu"}
           ]
