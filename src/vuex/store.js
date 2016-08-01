@@ -6,7 +6,7 @@ var state = {
   detail: {months: []},
   displayedMonthIndex: 0,
   baseUrl: '',
-  categorySelected: 'yiban',
+  categorySelected: 'taobao',
   inputAmount: 0,
   categories: {
     spending: [],

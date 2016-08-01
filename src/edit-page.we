@@ -161,7 +161,7 @@
         deviceHeight: 0,
         deviceWidth: 0,
         baseUrl: '',
-        boxSelected: 'income'
+        boxSelected: 'spending'
       }
     },
     computed: {
@@ -187,7 +187,7 @@
       },
       categories: {
         get: function() {
-          return this.store.state.categories.spending;
+          return this.store.state.categories[this.boxSelected];
         }
       }
     },
@@ -220,9 +220,11 @@
       },
       incomeClicked: function() {
         this.boxSelected = 'income';
+        this.store.commit('selectCategory', 'jiangjin');
       },
       spendingClicked: function() {
         this.boxSelected = 'spending';
+        this.store.commit('selectCategory', 'taobao');
       }
     },
     created: function() {
