@@ -44,6 +44,7 @@
     },
     methods: {
       addDetail: function() {
+        this.store.commit('setSubmitType', 'add');
         this.$dispatch('addDetail');
       }
     },

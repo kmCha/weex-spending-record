@@ -303,7 +303,11 @@
           month: month,
           date: date
         };
-        this.store.commit('addDetail', payload)
+        if (this.store.state.submitType === 'add') {
+          this.store.commit('addDetail', payload);
+        } else if (this.store.state.submitType === 'edit') {
+          this.store.commit('editDetail', payload);
+        }
       },
       onAmountClick: function() {
         this.showInput = true;

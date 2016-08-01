@@ -130,7 +130,8 @@
         this.store.commit('setSelectedType', this.detail.income ? 'income' : 'spending');
         this.store.commit('selectCategory', this.detail.category);
         this.store.commit('setAmount', this.detail.amount);
-        this.$dispatch('editItem');
+        this.store.commit('setSubmitType', 'edit');
+        this.$dispatch('editItem', this.detailIndex);
       },
       clickDayBox: function() {
         var monthIndex = this.store.state.monthIndex;

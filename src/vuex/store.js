@@ -9,6 +9,7 @@ var state = {
   categorySelected: 'taobao',
   inputAmount: 0,
   selectedType: 'spending',
+  submitType: 'add',
   categories: {
     spending: [],
     income: []
@@ -64,11 +65,10 @@ var mutations = {
     state.inputAmount = amount;
   },
   addDetail: function(state, payload) {
-    console.log(payload.detail, payload.year, payload.month, payload.date)
     var detail = payload.detail;
     var year = payload.year;
     var month = payload.month;
-    var date = payload. date;
+    var date = payload.date;
     var topMonth = state.detail.months[0];
     if (topMonth.year === year && topMonth.month === month) {
       if (topMonth.dates[0].date === date) {
@@ -95,6 +95,19 @@ var mutations = {
   },
   setSelectedType: function(state, type) {
     state.selectedType = type;
+  },
+  setSubmitType: function(state, type) {
+    state.submitType = type;
+  },
+  editDetail: function(state, payload) {
+    var monthIndex = state.monthIndex;
+    var dateIndex = state.dateIndex;
+    var detailIndex = state.detailIndex;
+    var detail = state.detail.months[monthIndex].dates[dateIndex].details[detailIndex];
+    detail.income = payload.detail.income;
+    detail.amount = payload.detail.amount;
+    detail.desc = payload.detail.desc;
+    detail.category = payload.detail.category;
   }
 }
 
