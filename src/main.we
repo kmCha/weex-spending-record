@@ -61,6 +61,7 @@
         //process response
         if (typeof response === 'string') {
           response = JSON.parse(response);
+          response.data = JSON.parse(response.data);
         }
         self.store.commit('setCategories', response.data);
       },function(response){

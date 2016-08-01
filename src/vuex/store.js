@@ -58,6 +58,9 @@ var mutations = {
   },
   setCategories: function(state, arr) {
     state.categories = arr;
+  },
+  setAmount: function(state, amount) {
+    state.inputAmount = amount;
   }
 }
 

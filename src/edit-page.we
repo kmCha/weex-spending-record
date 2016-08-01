@@ -19,7 +19,9 @@
         <text class="input-icon-text">{{categorySelectedCN}}</text>
       </div>
       <div class="input-amount-box">
-        <text class="input-amount-text">￥{{inputAmount}}</text>
+        <!-- <text class="input-amount-text">￥{{inputAmount}}</text> -->
+        <text class="input-amount-text">￥</text>
+        <input class="input-amount-input" type="number" value="{{inputAmount}}" oninput="onAmountChange"></input>
       </div>
     </div>
     <scroller class="categories-scroller">
@@ -132,6 +134,15 @@
   .input-amount-text {
     font-size: 70;
     color: #fff;
+    margin-top: 10;
+  }
+  .input-amount-input {
+    height: 110;
+    width: 175;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 70;
   }
   .categories-scroller {
     width: 750;
@@ -161,7 +172,8 @@
         deviceHeight: 0,
         deviceWidth: 0,
         baseUrl: '',
-        boxSelected: 'spending'
+        boxSelected: 'spending',
+        amount: 0
       }
     },
     computed: {
@@ -225,6 +237,10 @@
       spendingClicked: function() {
         this.boxSelected = 'spending';
         this.store.commit('selectCategory', 'taobao');
+      },
+      onAmountChange: function(e) {
+        // this.store.commit('setAmount', e.value);
+        this.amount = e.value;
       }
     },
     created: function() {
