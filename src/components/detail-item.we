@@ -1,9 +1,9 @@
 <template>
   <container>
-    <div class="day-box {{color}}" onclick="clickDayBox">
-      <img src="{{baseUrl}}img/{{detail.category}}.png" style="width:45;height:45;"></img>
+    <div class="day-box {{color}}" style="background-color: {{categoryColor}};" onclick="clickDayBox">
+      <img src="{{baseUrl}}img/{{detail.category}}.png" style="width:40;height:40;"></img>
       <div class="detail-box {{position}}">
-        <text class="detail-text">{{category}}：{{amount}}元</text>
+        <text class="detail-text">{{category}} {{amount}}元</text>
       </div>
       <div class="desc-box {{position}}">
         <text class="desc-text">{{detail.desc}}</text>
@@ -34,7 +34,7 @@
     position: absolute;
     top: 0;
     height: 55;
-    width: 200;
+    width: 230;
     display: flex;
     justify-content: center;
   }
@@ -53,14 +53,6 @@
     position: absolute;
     width: 200;
     bottom: -15;
-  }
-  .right {
-    left: 65;
-    align-items: flex-start;
-  }
-  .left {
-    left: -210;
-    align-items: flex-end;
   }
   .desc-text {
     font-size: 20;
@@ -95,6 +87,7 @@
 <script>
   // var this.store = require('../vuex/this.store.js');
   var getCategoryCN = require('../lib/getCategoryProperties.js').getCategoryCN;
+  var getCategoryColor = require('../lib/getCategoryProperties.js').getCategoryColor;
   var animation = require('@weex-module/animation');
   module.exports = {
     data: function() {
@@ -216,6 +209,9 @@
       // },
       category: function() {
         return getCategoryCN(this.store.state.categories, this.detail.category);
+      },
+      categoryColor: function() {
+        return getCategoryColor(this.store.state.categories, this.detail.category);
       },
       position: function() {
         return this.detail.income ? 'left' : 'right';

@@ -10,11 +10,11 @@
 <style>
 .category-box {
   height: 120;
-  width: 80;
+  width: 110;
   margin-left: 20;
   margin-right: 20;
   margin-top: 50;
-  margin-bottom: 50;
+  margin-bottom: 0;
   justify-content: center;
   align-items: center;
 }
@@ -33,6 +33,7 @@
 }
 .category-box-text {
   color: #ddd;
+  font-size: 25;
 }
 </style>
 

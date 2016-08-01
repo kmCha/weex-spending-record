@@ -92,9 +92,9 @@
       dailySummary: function() {
         var totalAmount = this.totalAmount;
         if (totalAmount < 0) {
-          return '收入：' + -totalAmount.toFixed(2) + '元';
+          return '收入 ' + -totalAmount.toFixed(2) + '元';
         }
-        return '支出：' + totalAmount.toFixed(2) + '元';
+        return '支出 ' + totalAmount.toFixed(2) + '元';
       },
       color: function() {
         var totalAmount = this.totalAmount;

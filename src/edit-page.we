@@ -13,7 +13,7 @@
     </div>
     <div class="input-box">
       <div class="input-icon-box">
-        <div class="input-icon-img-box">
+        <div class="input-icon-img-box" style="background-color: {{categorySelectedColor}};">
           <img class="input-icon-img" src="{{baseUrl}}img/{{categorySelected}}.png"></img>
         </div>
         <text class="input-icon-text">{{categorySelectedCN}}</text>
@@ -143,12 +143,14 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    flex-flow: wrap;
   }
 </style>
 
 <script>
   var stream = require('@weex-module/stream');
   var getCategoryCN = require('./lib/getCategoryProperties.js').getCategoryCN;
+  var getCategoryColor = require('./lib/getCategoryProperties.js').getCategoryColor;
   // var categories = require('./lib/getCategoryProperties.js').categories;
   var animation = require('@weex-module/animation');
   // var store = require('./vuex/store.js');
@@ -171,6 +173,11 @@
       categorySelectedCN: {
         get: function() {
           return getCategoryCN(this.store.state.categories, this.categorySelected);
+        }
+      },
+      categorySelectedColor: {
+        get: function() {
+          return getCategoryColor(this.store.state.categories, this.categorySelected);
         }
       },
       inputAmount: {
