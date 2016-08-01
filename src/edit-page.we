@@ -21,7 +21,7 @@
       <div class="input-amount-box" onclick="onAmountClick">
         <text class="input-amount-text">￥</text>
         <text if="showAmount" class="input-amount-text">{{inputAmount}}</text>
-        <input if="showInput" autofocus="true" class="input-amount-input" type="number" value="{{inputAmount}}" oninput="onAmountChange" onblur="onAmountBlur"></input>
+        <input if="showInput" autofocus="true" class="input-amount-input" type="number" oninput="onAmountChange" onblur="onAmountBlur"></input>
       </div>
     </div>
     <scroller class="categories-scroller">
@@ -144,7 +144,7 @@
   }
   .input-amount-input {
     height: 110;
-    width: 175;
+    width: 225;
     background-color: transparent;
     border: none;
     color: #fff;
